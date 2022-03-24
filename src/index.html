@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>Andrew Ensley | Leader / Developer / Musician</title>
+    <meta name="keywords" content="Andrew,Ensley,Andrew Ensley" />
+    <meta name="description" content="Leader / Developer / Musician" />
+    <link rel="canonical" href="https://andrewensley.com/" />
+    <link rel="shortlink" href="https://andrewensley.com/" />
+
+    @@include('include/prefetch.html') @@include('include/favicon.html') @@include('include/social-meta.html')
+    @@include('include/css.html') @@include('include/verification.html')
+
+    <!-- Font Awesome Icons -->
+    <script defer src="assets/vendor/fontawesome/all.js"></script>
+  </head>
+
+  <body>
+    <!-- ======= Mobile nav toggle button ======= -->
+    <!-- <button type="button" class="mobile-nav-toggle d-xl-none"><i class="bi bi-list mobile-nav-toggle"></i></button> -->
+    <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+    <!-- ======= Header ======= -->
+    <header id="header" class="d-flex flex-column justify-content-center">
+      <nav id="navbar" class="navbar nav-menu">
+        <ul>
+          <li>
+            <a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a>
+          </li>
+          <li>
+            <a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a>
+          </li>
+          <li>
+            <a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Resume</span></a>
+          </li>
+          <!--<li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>-->
+        </ul>
+      </nav>
+      <!-- .nav-menu -->
+    </header>
+    <!-- End Header -->
+
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="d-flex flex-column justify-content-center">
+      <div class="container" data-aos="zoom-in" data-aos-delay="100">
+        <h1>Andrew Ensley</h1>
+        <p>
+          I am a
+          <span
+            class="typed"
+            data-typed-items="Leader, Developer, Site Reliability Engineer, Musician, Trailblazer, Soccer Player"></span>
+        </p>
+        <div class="social-links">@@include('include/social-links.html', { "color": "black" })</div>
+      </div>
+    </section>
+    <!-- End Hero -->
+
+    <main id="main">
+      @@include('include/about.html') @@include('include/facts.html') @@include('include/skills.html')
+      @@include('include/resume.html') @@include('include/contact.html') @@include('include/donate.html')
+    </main>
+    <!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+      <div class="container">
+        <h3>Andrew Ensley</h3>
+        <p>Leader / Developer / Musician</p>
+        <div class="social-links">@@include('include/social-links.html', { "color": "white" })</div>
+        <div class="copyright">
+          &copy; Copyright <strong><span>Andrew Ensley</span></strong
+          >. All Rights Reserved
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer -->
+
+    <div id="preloader"></div>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    @@include('include/scripts.html')
+  </body>
+</html>

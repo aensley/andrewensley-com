@@ -1,0 +1,6 @@
+.vscode/
+dist/
+node_modules/
+src/faviconData.json
+src/assets/vendor/
+gulpfile.js
