@@ -40,5 +40,8 @@
   "html.format.endWithNewline": true,
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
-  "files.eol": "\n"
+  "files.eol": "\n",
+  "[ignore]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  }
 }

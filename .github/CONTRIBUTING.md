@@ -67,6 +67,12 @@ $ npm run watch
 
 ## Deploy
 
+https://developers.cloudflare.com/pages/get-started/
+
+```bash
+$ npm ci && npm run build
+```
+
 ## Updates
 
 ### Bootstrap Icons
