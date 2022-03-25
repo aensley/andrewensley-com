@@ -9,6 +9,7 @@ const imagemin = require('gulp-imagemin')
 const realFavicon = require('gulp-real-favicon')
 const sourcemaps = require('gulp-sourcemaps')
 const fs = require('fs')
+let deployEnv = 'prod'
 let packageJson
 
 const paths = {
@@ -62,7 +63,7 @@ function html (cb) {
     .pipe(
       replace(/\{\{([\S]+)\.version\}\}/g, function (match, p1) {
         // See https://mdn.io/string.replace#Specifying_a_function_as_a_parameter
-        return packageJson.dependencies[p1]
+        return packageJson.extLinks[p1]
       })
     )
     .pipe(
@@ -87,16 +88,25 @@ function html (cb) {
 
 // Minify JavaScript
 function js (cb) {
-  src(paths.js.src)
-    .pipe(sourcemaps.init())
-    .pipe(uglify({ toplevel: true }))
-    .pipe(sourcemaps.write('../maps'))
-    .pipe(dest(paths.js.dest))
-  src(paths.vendorJs.src)
-    .pipe(sourcemaps.init())
-    .pipe(uglify({ toplevel: true }))
-    .pipe(sourcemaps.write('../maps'))
-    .pipe(dest(paths.vendorJs.dest))
+  if (deployEnv === 'dev') {
+    src(paths.js.src)
+      .pipe(sourcemaps.init())
+      .pipe(uglify({ toplevel: true }))
+      .pipe(sourcemaps.write('../maps'))
+      .pipe(dest(paths.js.dest))
+    src(paths.vendorJs.src)
+      .pipe(sourcemaps.init())
+      .pipe(uglify({ toplevel: true }))
+      .pipe(sourcemaps.write('../maps'))
+      .pipe(dest(paths.vendorJs.dest))
+  } else {
+    src(paths.js.src)
+      .pipe(uglify({ toplevel: true }))
+      .pipe(dest(paths.js.dest))
+    src(paths.vendorJs.src)
+      .pipe(uglify({ toplevel: true }))
+      .pipe(dest(paths.vendorJs.dest))
+  }
   cb()
 }
 
@@ -211,6 +221,11 @@ function watchSrc () {
   watch(paths.scss.src, scss)
 }
 
+function setDev (cb) {
+  deployEnv = 'dev'
+  cb()
+}
+
 exports.clean = clean
 exports.html = html
 exports.js = js
@@ -218,4 +233,5 @@ exports.scss = scss
 exports.img = img
 exports.generateFavicon = generateFavicon
 exports.default = series(getPackageInfo, generateFavicon, img, html, js, scss, copyCloudflareMeta)
-exports.watch = series(getPackageInfo, watchSrc)
+exports.dev = series(getPackageInfo, setDev, generateFavicon, img, html, js, scss, copyCloudflareMeta)
+exports.watch = series(getPackageInfo, setDev, watchSrc)
