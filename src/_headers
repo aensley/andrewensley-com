@@ -1,9 +1,9 @@
-/*
-  X-Content-Type-Options: nosniff
-  X-Frame-Options: DENY
-  X-XSS-Protection: 1; mode=block
-  Referrer-Policy: no-referrer
-  Content-Security-Policy: default-src 'none'; connect-src 'self' https://www.google-analytics.com https://cloudflareinsights.com; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; frame-ancestors 'none'; img-src 'self' https://www.gravatar.com https://www.paypalobjects.com; manifest-src 'self'; script-src 'self' https://www.googletagmanager.com https://cdn.jsdelivr.net https://static.cloudflareinsights.com; style-src 'unsafe-inline' 'self' https://fonts.googleapis.com https://cdn.jsdelivr.net data:;
-  Permissions-Policy: accelerometer=(), autoplay=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(), hid=()
-https://:project.pages.dev/*
-  X-Robots-Tag: noindex
+/_
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+Referrer-Policy: no-referrer
+Content-Security-Policy: default-src 'none'; base-uri 'none'; connect-src 'self' https://www.google-analytics.com https://cloudflareinsights.com; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; form-action 'self'; frame-ancestors 'none'; img-src 'self' https://www.gravatar.com https://www.paypalobjects.com; manifest-src 'self'; script-src 'self' https://www.googletagmanager.com https://cdn.jsdelivr.net https://static.cloudflareinsights.com; style-src 'unsafe-inline' 'self' https://fonts.googleapis.com https://cdn.jsdelivr.net data:;
+Permissions-Policy: accelerometer=(), autoplay=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(), hid=()
+https://:project.pages.dev/_
+X-Robots-Tag: noindex
