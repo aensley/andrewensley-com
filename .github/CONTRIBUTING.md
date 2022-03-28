@@ -6,7 +6,7 @@
 
 | Name         | License            | Version | Last Updated | Built With       |
 | ------------ | ------------------ | ------- | ------------ | ---------------- |
-| MyResume Pro | Unlimited Websites | 4.7.0   | 2021-11-21   | Bootstrap v5.1.3 |
+| [MyResume Pro](https://bootstrapmade.com/free-html-bootstrap-template-my-resume/) | Unlimited Websites | 4.7.0   | 2021-11-21   | Bootstrap v5.1.3 |
 
 [Download](https://bootstrapmade.com/members/)
 
@@ -96,7 +96,40 @@ $ npm ci && npm run build
 
 Search for icons to use here: https://fontawesome.com/v5/search
 
+#### In Use
+
+Below are the lists of icons currently in use.
+
+##### fab
+
+* fa-git-alt
+* fa-github
+* fa-linkedin
+* fa-stack-overflow
+
+##### fas
+
+* fa-address-card
+* fa-bars
+* fa-biking-mountain
+* fa-chevron-right
+* fa-chevron-up
+* fa-drum
+* fa-exchange
+* fa-file-chart-line
+* fa-file-user
+* fa-futbol
+* fa-guitar-electric
+* fa-hiking
+* fa-home
+* fa-tasks-alt
+* fa-times
+
 #### Update
 
 1. Download the latest "Pro For Web" package here: https://fontawesome.com/v5/download
-1. From the downloaded .zip, extract the `js/all.js` file to `/src/assets/vendor/fontawesome/all.js`
+1. From the downloaded .zip, extract the `js/brands.js` file to `/src/assets/vendor/fontawesome/custom.js`
+   1. Reduce the set of icons to what is listed above under [fab](#fab)
+1. From the downloaded .zip, append the `js/solid.js` file to `/src/assets/vendor/fontawesome/custom.js`
+   1. Reduce the set of icons to what is listed above under [fas](#fas)
+1. From the downloaded .zip, append the `js/fontawesome.js` file to `/src/assets/vendor/fontawesome/custom.js`
