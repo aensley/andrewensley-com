@@ -3,8 +3,16 @@
 }
 
 .ps-icon {
-  height: 20px;
-  width: 20px;
+  height: 24px;
+  width: 24px;
+}
+
+.pad60 {
+  padding: 6px 0 !important;
+  .ps-icon {
+    height: 20px;
+    width: 20px;
+  }
 }
 
 #garminConnectIcon {
@@ -13,4 +21,45 @@
 
 .yvnzr {
   display: none;
+}
+
+.facts {
+  .count-box {
+    svg {
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 24px;
+      background: $primary;
+      color: $white;
+      border-radius: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      padding: 12px;
+    }
+  }
+}
+
+.back-to-top {
+  svg {
+    font-size: 20px;
+    color: #fff;
+    line-height: 0;
+  }
+}
+
+.mobile-nav-toggle {
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  padding: 8px 0;
+  text-align: center;
+}
+
+.fa-li {
+  color: $primary;
 }

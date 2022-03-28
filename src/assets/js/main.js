@@ -92,8 +92,8 @@
    */
   on('click', '.mobile-nav-toggle', function (e) {
     select('body').classList.toggle('mobile-nav-active')
-    this.classList.toggle('bi-list')
-    this.classList.toggle('bi-x')
+    this.children[0].classList.toggle('fa-bars')
+    this.children[0].classList.toggle('fa-times')
   })
 
   /**
@@ -110,8 +110,8 @@
         if (body.classList.contains('mobile-nav-active')) {
           body.classList.remove('mobile-nav-active')
           const navbarToggle = select('.mobile-nav-toggle')
-          navbarToggle.classList.toggle('bi-list')
-          navbarToggle.classList.toggle('bi-x')
+          navbarToggle.children[0].classList.toggle('fa-bars')
+          navbarToggle.children[0].classList.toggle('fa-times')
         }
         scrollto(this.hash)
       }
