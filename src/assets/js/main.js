@@ -110,8 +110,8 @@
         if (body.classList.contains('mobile-nav-active')) {
           body.classList.remove('mobile-nav-active')
           const navbarToggle = select('.mobile-nav-toggle')
-          navbarToggle.classList.toggle('bi-list')
-          navbarToggle.classList.toggle('bi-x')
+          navbarToggle.children[0].classList.toggle('fa-bars')
+          navbarToggle.children[0].classList.toggle('fa-times')
         }
         scrollto(this.hash)
       }
