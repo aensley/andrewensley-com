@@ -28,7 +28,7 @@ export const onRequestPost = async function (context) {
     // Check for spam.
     const isSpam = await checkSpam(requestDetails, context)
     if (isSpam) {
-      return new Response(JSON.stringify({ status: 'error', message: 'Bad Request' }), {
+      return new Response(JSON.stringify({ message: 'Bad Request' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json;charset=utf-8' }
       })
@@ -38,9 +38,9 @@ export const onRequestPost = async function (context) {
     let outputJSON = {}
     let returnStatus = 200
     if (emailResponse.status === 202) {
-      outputJSON = { status: 'success', message: 'OK' }
+      outputJSON = { message: 'Email Sent' }
     } else {
-      outputJSON = { status: 'error', message: emailResponse.statusText, errors: await emailResponse.text() }
+      outputJSON = { message: emailResponse.statusText + (await emailResponse.text()) }
       returnStatus = 500
     }
 
@@ -59,7 +59,7 @@ export const onRequestPost = async function (context) {
       ''
     )
     context.request.waitUntil(posted)
-    return new Response(JSON.stringify({ status: 'error', message: 'Internal server error. Event ID: ' + event_id }), {
+    return new Response(JSON.stringify({ message: 'Internal server error. Event ID: ' + event_id }), {
       status: 500,
       headers: { 'Content-Type': 'application/json;charset=utf-8' }
     })
