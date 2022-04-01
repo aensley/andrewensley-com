@@ -8,10 +8,10 @@
 }
 
 .pad60 {
-  padding: 6px 0 !important;
+  padding: 7px 0 !important;
   .ps-icon {
-    height: 20px;
-    width: 20px;
+    height: 18px;
+    width: 18px;
   }
 }
 
@@ -62,4 +62,107 @@
 
 .fa-li {
   color: $primary;
+}
+
+.contact {
+  .info {
+    .address > span,
+    .email > span,
+    .phone > span {
+      font-size: 20px;
+      color: $primary;
+      float: left;
+      width: 44px;
+      height: 44px;
+      background: lighten($secondary, 64);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .email:hover > span,
+    .address:hover > span,
+    .phone:hover > span {
+      background: $primary;
+      color: $white;
+    }
+  }
+
+  .contact-form {
+    width: 100%;
+    background: #fff;
+
+    .form-group {
+      padding-bottom: 8px;
+    }
+
+    .error-message {
+      display: none;
+      color: #fff;
+      background: #c3423f;
+      text-align: left;
+      padding: 15px;
+      font-weight: 600;
+      & br + br {
+        margin-top: 25px;
+      }
+    }
+
+    .sent-message {
+      display: none;
+      color: #fff;
+      background: #256d1b;
+      text-align: center;
+      padding: 15px;
+      font-weight: 600;
+    }
+
+    .loading {
+      display: none;
+      background: #fff;
+      text-align: center;
+      padding: 15px;
+
+      &:before {
+        content: '';
+        display: inline-block;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        margin: 0 10px -6px 0;
+        border: 3px solid #256d1b;
+        border-top-color: #eee;
+        animation: animate-loading 1s linear infinite;
+      }
+    }
+
+    input,
+    textarea {
+      border-radius: 4px;
+      box-shadow: none;
+      font-size: 14px;
+    }
+
+    input {
+      height: 44px;
+    }
+
+    textarea {
+      padding: 10px 12px;
+    }
+
+    button[type='submit'] {
+      background: $primary;
+      border: 0;
+      padding: 10px 35px;
+      color: #fff;
+      transition: 0.4s;
+      border-radius: 50px;
+      &:hover {
+        background: lighten($primary, 8);
+      }
+    }
+  }
 }

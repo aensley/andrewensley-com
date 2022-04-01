@@ -9,13 +9,16 @@ const imagemin = require('gulp-imagemin')
 const realFavicon = require('gulp-real-favicon')
 const sourcemaps = require('gulp-sourcemaps')
 const fs = require('fs')
-let deployEnv = 'prod'
 let packageJson
 
 const paths = {
-  cloudflare: {
+  cloudflareMeta: {
     src: 'src/_*',
     dest: 'dist/'
+  },
+  cloudflareFunctions: {
+    src: 'src/functions/*.ts',
+    dest: 'dist/functions/'
   },
   html: {
     src: 'src/*.html',
@@ -40,6 +43,7 @@ const paths = {
   }
 }
 
+// Get Package information from package.json
 function getPackageInfo (cb) {
   packageJson = JSON.parse(fs.readFileSync('./package.json'))
   cb()
@@ -51,8 +55,9 @@ function clean (cb) {
   cb()
 }
 
-function copyCloudflareMeta (cb) {
-  src(paths.cloudflare.src).pipe(dest(paths.cloudflare.dest))
+// Copy Cloudflare Pages Meta Info
+function cloudflareMeta (cb) {
+  src(paths.cloudflareMeta.src).pipe(dest(paths.cloudflareMeta.dest))
   cb()
 }
 
@@ -88,25 +93,30 @@ function html (cb) {
 
 // Minify JavaScript
 function js (cb) {
-  if (deployEnv === 'dev') {
-    src(paths.js.src)
-      .pipe(sourcemaps.init())
-      .pipe(uglify({ toplevel: true }))
-      .pipe(sourcemaps.write('../maps'))
-      .pipe(dest(paths.js.dest))
-    src(paths.vendorJs.src)
-      .pipe(sourcemaps.init())
-      .pipe(uglify({ toplevel: true }))
-      .pipe(sourcemaps.write('../maps'))
-      .pipe(dest(paths.vendorJs.dest))
-  } else {
-    src(paths.js.src)
-      .pipe(uglify({ toplevel: true }))
-      .pipe(dest(paths.js.dest))
-    src(paths.vendorJs.src)
-      .pipe(uglify({ toplevel: true }))
-      .pipe(dest(paths.vendorJs.dest))
-  }
+  src(paths.js.src)
+    .pipe(replace('{commit_hash}', process.env.CF_PAGES_COMMIT_SHA))
+    .pipe(replace('{branch_name}', process.env.CF_PAGES_BRANCH))
+    .pipe(replace('{environment}', process.env.CF_PAGES_BRANCH === 'main' ? 'production' : 'development'))
+    .pipe(replace('{package_name}', packageJson.name))
+    .pipe(replace('{package_version}', packageJson.version))
+    .pipe(sourcemaps.init())
+    .pipe(uglify({ toplevel: true }))
+    .pipe(sourcemaps.write('../maps'))
+    .pipe(dest(paths.js.dest))
+  src(paths.vendorJs.src)
+    .pipe(sourcemaps.init())
+    .pipe(uglify({ toplevel: true }))
+    .pipe(sourcemaps.write('../maps'))
+    .pipe(dest(paths.vendorJs.dest))
+  cb()
+}
+
+// Copy Cloudflare Functions
+function cloudflareFunctions (cb) {
+  src(paths.cloudflareFunctions.src)
+    .pipe(replace('{package_name}', packageJson.name))
+    .pipe(replace('{package_version}', packageJson.version))
+    .pipe(dest(paths.cloudflareFunctions.dest))
   cb()
 }
 
@@ -212,6 +222,7 @@ function generateFavicon (cb) {
   )
 }
 
+// Watch for changes
 function watchSrc () {
   console.warn('Watching for changes... Press [CTRL+C] to stop.')
   watch(paths.html.src, html)
@@ -221,17 +232,11 @@ function watchSrc () {
   watch(paths.scss.src, scss)
 }
 
-function setDev (cb) {
-  deployEnv = 'dev'
-  cb()
-}
-
 exports.clean = clean
 exports.html = html
 exports.js = js
 exports.scss = scss
 exports.img = img
 exports.generateFavicon = generateFavicon
-exports.default = series(getPackageInfo, generateFavicon, img, html, js, scss, copyCloudflareMeta)
-exports.dev = series(getPackageInfo, setDev, generateFavicon, img, html, js, scss, copyCloudflareMeta)
-exports.watch = series(getPackageInfo, setDev, watchSrc)
+exports.default = series(getPackageInfo, generateFavicon, img, html, cloudflareFunctions, js, scss, cloudflareMeta)
+exports.watch = series(getPackageInfo, watchSrc)
