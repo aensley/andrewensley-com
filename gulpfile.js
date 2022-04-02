@@ -111,15 +111,6 @@ function js (cb) {
   cb()
 }
 
-// Copy Cloudflare Functions
-function cloudflareFunctions (cb) {
-  src(paths.cloudflareFunctions.src)
-    .pipe(replace('{package_name}', packageJson.name))
-    .pipe(replace('{package_version}', packageJson.version))
-    .pipe(dest(paths.cloudflareFunctions.dest))
-  cb()
-}
-
 // Compile SCSS
 function scss (cb) {
   src(paths.scss.src)
@@ -225,11 +216,10 @@ function generateFavicon (cb) {
 // Watch for changes
 function watchSrc () {
   console.warn('Watching for changes... Press [CTRL+C] to stop.')
-  watch(paths.html.src, html)
-  watch(paths.htmlinclude, html)
+  watch([paths.html.src, paths.htmlinclude], html)
+  watch(paths.scss.src, scss)
   watch(paths.img.src, img)
   watch([paths.js.src, paths.vendorJs.src], js)
-  watch(paths.scss.src, scss)
 }
 
 exports.clean = clean
@@ -238,5 +228,5 @@ exports.js = js
 exports.scss = scss
 exports.img = img
 exports.generateFavicon = generateFavicon
-exports.default = series(getPackageInfo, generateFavicon, img, html, cloudflareFunctions, js, scss, cloudflareMeta)
+exports.default = series(getPackageInfo, cloudflareMeta, html, scss, img, js, generateFavicon)
 exports.watch = series(getPackageInfo, watchSrc)
