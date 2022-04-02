@@ -12,6 +12,10 @@ export const onRequestPost = async function (context) {
   try {
     const headers = context.request.headers
     const input = await context.request.formData()
+    return new Response(JSON.stringify(input), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json;charset=utf-8' }
+    })
     const requestDetails = {
       name: input.name,
       email: input.email,
@@ -25,13 +29,9 @@ export const onRequestPost = async function (context) {
       environment: headers.get('host')
     }
 
-    return new Response(JSON.stringify(requestDetails), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json;charset=utf-8' }
-    })
-
     // Check for spam.
-    const isSpam = await checkSpam(requestDetails, context)
+    return await checkSpam(requestDetails, context)
+    // const isSpam = await checkSpam(requestDetails, context)
     if (isSpam) {
       return new Response(JSON.stringify({ message: 'Bad Request' }), {
         status: 400,
@@ -95,6 +95,11 @@ const checkSpam = async function (requestDetails, context) {
     comment_author_url: '',
     comment_content: requestDetails.message
   }
+
+  return new Response(JSON.stringify(comment), {
+    status: 400,
+    headers: { 'Content-Type': 'application/json;charset=utf-8' }
+  })
 
   try {
     const spamResponse = await fetch(
