@@ -25,12 +25,13 @@ export const onRequestPost = async function (context) {
       environment: headers.get('host')
     }
 
-    // Check for spam.
-    const isSpam = await checkSpam(requestDetails, context)
-    return new Response(JSON.stringify({ result: isSpam }), {
+    return new Response(JSON.stringify(requestDetails), {
       status: 400,
       headers: { 'Content-Type': 'application/json;charset=utf-8' }
     })
+
+    // Check for spam.
+    const isSpam = await checkSpam(requestDetails, context)
     if (isSpam) {
       return new Response(JSON.stringify({ message: 'Bad Request' }), {
         status: 400,
@@ -109,8 +110,7 @@ const checkSpam = async function (requestDetails, context) {
         method: 'POST'
       }
     )
-    // return (await spamResponse.text()) === 'true'
-    return await spamResponse.text()
+    return (await spamResponse.text()) === 'true'
   } catch (err) {
     return false
   }
