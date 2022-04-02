@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@cfworker/sentry": "^1.12.1",
+    "@cloudflare/workers-types": "^3.4.0",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-cli": "^2.3.0",
