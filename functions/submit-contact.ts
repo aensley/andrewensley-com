@@ -51,7 +51,7 @@ export const onRequestPost = async function (context) {
   } catch (err) {
     /* eslint-disable camelcase */
     const { event_id, posted } = captureError(
-      context.env.default.get('SENTRY_DSN'),
+      await context.env.default.get('SENTRY_DSN'),
       context.request.headers.get('host'),
       '{package_name}@{package_version}',
       err,
@@ -93,7 +93,7 @@ const checkSpam = async function (requestDetails, context) {
 
   try {
     const spamResponse = await fetch(
-      'https://' + context.env.default.get('AKISMET_KEY') + '.rest.akismet.com/1.1/comment-check',
+      'https://' + (await context.env.default.get('AKISMET_KEY')) + '.rest.akismet.com/1.1/comment-check',
       {
         body: Object.keys(comment)
           .map((key) => key + '=' + comment[key])
@@ -125,21 +125,21 @@ const sendEmail = async function (requestDetails, context) {
         {
           to: [
             {
-              email: context.env.default.get('EMAIL'),
+              email: await context.env.default.get('EMAIL'),
               name: 'Andrew Ensley'
             }
           ],
           dynamic_template_data: requestDetails
         }
       ],
-      template_id: context.env.default.get('SENDGRID_TEMPLATE_ID'),
+      template_id: await context.env.default.get('SENDGRID_TEMPLATE_ID'),
       from: {
-        email: context.env.default.get('EMAIL'),
+        email: await context.env.default.get('EMAIL'),
         name: requestDetails.name
       }
     }),
     headers: {
-      Authorization: 'Bearer ' + context.env.default.get('SENDGRID_API_KEY'),
+      Authorization: 'Bearer ' + (await context.env.default.get('SENDGRID_API_KEY')),
       'Content-Type': 'application/json'
     },
     method: 'POST'
