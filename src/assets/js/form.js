@@ -20,12 +20,24 @@ const submitForm = async function (thisForm, action, formData) {
     displayError(thisForm, error)
   })
 
-  if (response.ok) {
-    thisForm.querySelector('.loading').classList.remove('d-block')
-    thisForm.querySelector('.sent-message').classList.add('d-block')
-    thisForm.reset()
-  } else {
-    displayError(thisForm, `${response.status} ${response.statusText} ${await response.text()}`)
+  switch (response.status) {
+    case 200:
+      thisForm.querySelector('.loading').classList.remove('d-block')
+      thisForm.querySelector('.sent-message').classList.add('d-block')
+      thisForm.reset()
+      break
+    case 400:
+      displayError(thisForm, 'Bad request. Please update your inputs and try again.')
+      break
+    case 500:
+      displayError(
+        thisForm,
+        `A server side error has occurred: ${response.status} ${response.statusText} ${await response.text()}`
+      )
+      break
+    default:
+      displayError(thisForm, `${response.status} ${response.statusText} ${await response.text()}`)
+      break
   }
 }
 
