@@ -12,7 +12,7 @@ export const onRequestPost = async function (context) {
   try {
     const headers = context.request.headers
     const input = await context.request.formData()
-    return new Response(JSON.stringify(input), {
+    return new Response(JSON.stringify([...input]), {
       status: 400,
       headers: { 'Content-Type': 'application/json;charset=utf-8' }
     })
