@@ -19,9 +19,9 @@ const submitForm = function (thisForm, action, formData) {
   })
     .then((response) => {
       if (response.ok) {
-        return response.json().message
+        return response.text()
       } else {
-        throw new Error(`${response.status} ${response.statusText} ${response.json().message || ''}`)
+        throw new Error(`${response.status} ${response.statusText} ${response.text() || ''}`)
       }
     })
     .then((data) => {

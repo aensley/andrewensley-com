@@ -28,26 +28,20 @@ export const onRequestPost = async function (context) {
     // Check for spam.
     const isSpam = await checkSpam(requestDetails, context)
     if (isSpam) {
-      return new Response(JSON.stringify({ message: 'Bad Request' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json;charset=utf-8' }
-      })
+      return new Response('Bad Request', { status: 400 })
     }
 
     const emailResponse = await sendEmail(requestDetails, context)
-    let outputJSON = {}
+    let output
     let returnStatus = 200
     if (emailResponse.status === 202) {
-      outputJSON = { message: 'Email Sent' }
+      output = 'Email Sent'
     } else {
-      outputJSON = { message: emailResponse.statusText + (await emailResponse.text()) }
+      output = emailResponse.statusText + (await emailResponse.text())
       returnStatus = 500
     }
 
-    return new Response(JSON.stringify(outputJSON), {
-      status: returnStatus,
-      headers: { 'Content-Type': 'application/json;charset=utf-8' }
-    })
+    return new Response(output, { status: returnStatus })
   } catch (err) {
     /* eslint-disable camelcase */
     const { event_id, posted } = captureError(
@@ -59,14 +53,17 @@ export const onRequestPost = async function (context) {
       ''
     )
     context.request.waitUntil(posted)
-    return new Response(JSON.stringify({ message: 'Internal server error. Event ID: ' + event_id }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json;charset=utf-8' }
-    })
+    return new Response('Internal server error. Event ID: ' + event_id, { status: 500 })
     /* eslint-enable camelcase */
   }
 }
 
+/**
+ * Parses a FormData Object into a JSON object.
+ *
+ * @param formData A FormData object (array of arrays)
+ * @returns JSON object
+ */
 const convertFormDataToJson = function (formData) {
   const output = {}
   for (const [key, value] of formData) {
