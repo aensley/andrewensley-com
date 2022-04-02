@@ -12,26 +12,21 @@ export const setupContactForm = function () {
   })
 }
 
-const submitForm = function (thisForm, action, formData) {
-  fetch(action, {
+const submitForm = async function (thisForm, action, formData) {
+  const response = await fetch(action, {
     method: 'POST',
     body: formData
+  }).catch((error) => {
+    displayError(thisForm, error)
   })
-    .then((response) => {
-      if (response.ok) {
-        return response.text()
-      } else {
-        throw new Error(`${response.status} ${response.statusText} ${response.text() || ''}`)
-      }
-    })
-    .then((data) => {
-      thisForm.querySelector('.loading').classList.remove('d-block')
-      thisForm.querySelector('.sent-message').classList.add('d-block')
-      thisForm.reset()
-    })
-    .catch((error) => {
-      displayError(thisForm, error)
-    })
+
+  if (response.ok) {
+    thisForm.querySelector('.loading').classList.remove('d-block')
+    thisForm.querySelector('.sent-message').classList.add('d-block')
+    thisForm.reset()
+  } else {
+    displayError(thisForm, `${response.status} ${response.statusText} ${response.text() || ''}`)
+  }
 }
 
 const displayError = function (thisForm, error) {
