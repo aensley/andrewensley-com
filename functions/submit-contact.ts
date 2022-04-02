@@ -11,11 +11,7 @@ import { captureError } from '@cfworker/sentry'
 export const onRequestPost = async function (context) {
   try {
     const headers = context.request.headers
-    const input = await context.request.formData()
-    return new Response(JSON.stringify([...input]), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json;charset=utf-8' }
-    })
+    const input = convertFormDataToJson(await context.request.formData())
     const requestDetails = {
       name: input.name,
       email: input.email,
@@ -30,8 +26,7 @@ export const onRequestPost = async function (context) {
     }
 
     // Check for spam.
-    return await checkSpam(requestDetails, context)
-    // const isSpam = await checkSpam(requestDetails, context)
+    const isSpam = await checkSpam(requestDetails, context)
     if (isSpam) {
       return new Response(JSON.stringify({ message: 'Bad Request' }), {
         status: 400,
@@ -72,6 +67,20 @@ export const onRequestPost = async function (context) {
   }
 }
 
+const convertFormDataToJson = function (formData) {
+  const output = {}
+  for (const [key, value] of formData) {
+    const tmp = output[key]
+    if (tmp === undefined) {
+      output[key] = value
+    } else {
+      output[key] = [].concat(tmp, value)
+    }
+  }
+
+  return output
+}
+
 /**
  * Checks if the contact form submission is spam using Akismet's API.
  *
@@ -95,11 +104,6 @@ const checkSpam = async function (requestDetails, context) {
     comment_author_url: '',
     comment_content: requestDetails.message
   }
-
-  return new Response(JSON.stringify(comment), {
-    status: 400,
-    headers: { 'Content-Type': 'application/json;charset=utf-8' }
-  })
 
   try {
     const spamResponse = await fetch(
