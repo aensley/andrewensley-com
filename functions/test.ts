@@ -2,8 +2,8 @@
 
 export const onRequestGet = async function (context) {
   const responseObject = {
-    headers: context.request.headers,
-    env: context.env
+    email: context.env.default.get('EMAIL'),
+    ip: context.request.headers.get('cf-connecting-ip')
   }
   return new Response(JSON.stringify(responseObject), {
     status: 200,
