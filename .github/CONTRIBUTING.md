@@ -115,6 +115,7 @@ Below are the lists of icons currently in use.
 * fa-chevron-right
 * fa-chevron-up
 * fa-drum
+* fa-envelope
 * fa-exchange
 * fa-file-chart-line
 * fa-file-user
@@ -122,6 +123,8 @@ Below are the lists of icons currently in use.
 * fa-guitar-electric
 * fa-hiking
 * fa-home
+* fa-map-marker-alt
+* fa-mobile
 * fa-tasks-alt
 * fa-times
 
