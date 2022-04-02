@@ -25,7 +25,7 @@ const submitForm = async function (thisForm, action, formData) {
     thisForm.querySelector('.sent-message').classList.add('d-block')
     thisForm.reset()
   } else {
-    displayError(thisForm, `${response.status} ${response.statusText} ${response.text() || ''}`)
+    displayError(thisForm, `${response.status} ${response.statusText} ${await response.text()}`)
   }
 }
 
