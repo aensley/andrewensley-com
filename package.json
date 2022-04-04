@@ -41,7 +41,6 @@
     "precommit-msg": "echo Running pre-commit checks...",
     "test": "standard src/assets/js/*.js && prettier --check .",
     "build": "npm run clean && gulp",
-    "build:dev": "npm run clean && gulp dev",
     "watch": "gulp watch",
     "start": "live-server dist"
   },
