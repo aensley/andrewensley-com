@@ -4,6 +4,7 @@ on: push
 
 jobs:
   build:
+    name: Test
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -20,13 +21,3 @@ jobs:
         run: npm run build --if-present
       - name: Test
         run: npm test
-      - name: Sentry release
-        if: github.ref_name == 'main'
-        uses: getsentry/action-release@v1.1.6
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-        with:
-          environment: production
-          sourcemaps: dist/assets/maps/**/*.map
