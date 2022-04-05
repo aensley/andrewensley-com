@@ -71,12 +71,7 @@ const convertFormDataToJson = function (formData) {
     message: ''
   }
   for (const [key, value] of formData) {
-    const tmp = output[key]
-    if (tmp === undefined) {
-      output[key] = value
-    } else {
-      output[key] = [].concat(tmp, value)
-    }
+    output[key] = value
   }
 
   return output
