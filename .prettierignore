@@ -1,6 +1,7 @@
 .github/
 .vscode/
 dist/
+functions/
 node_modules/
 src/_headers
 src/faviconData.json

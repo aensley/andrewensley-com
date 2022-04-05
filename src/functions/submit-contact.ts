@@ -46,9 +46,9 @@ export const onRequestPost = async function (context) {
   } catch (err) {
     /* eslint-disable camelcase */
     const { event_id, posted } = captureError(
-      await context.env.default.get('SENTRY_DSN'),
+      '{sentry_dsn}',
       '{environment}',
-      '{package_name}@{commit_hash}',
+      '{commit_hash}',
       err,
       context.request,
       ''
