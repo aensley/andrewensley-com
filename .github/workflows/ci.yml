@@ -1,15 +1,6 @@
 name: ci
 
-on:
-  push:
-    branches: ['*']
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
-    branches:
-      - main
+on: push
 
 jobs:
   build:
