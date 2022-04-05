@@ -22,7 +22,8 @@ export const onRequestPost = async function (context) {
       userIp: headers.get('cf-connecting-ip'),
       cfRay: headers.get('cf-ray'),
       referer: headers.get('referer'),
-      environment: headers.get('host')
+      environment: headers.get('host'),
+      version: '{commit_hash}'
     }
 
     // Check for spam.
