@@ -67,6 +67,7 @@ function cloudflareFunctions (cb) {
     .pipe(replace('{commit_hash}', process.env.CF_PAGES_COMMIT_SHA))
     .pipe(replace('{branch_name}', process.env.CF_PAGES_BRANCH))
     .pipe(replace('{environment}', process.env.CF_PAGES_BRANCH === 'main' ? 'production' : 'development'))
+    .pipe(replace('{sentry_dsn}', process.env.SENTRY_DSN))
     .pipe(replace('{package_name}', packageJson.name))
     .pipe(replace('{package_version}', packageJson.version))
     .pipe(dest(paths.cloudflareFunctions.dest))
@@ -109,6 +110,7 @@ function js (cb) {
     .pipe(replace('{commit_hash}', process.env.CF_PAGES_COMMIT_SHA))
     .pipe(replace('{branch_name}', process.env.CF_PAGES_BRANCH))
     .pipe(replace('{environment}', process.env.CF_PAGES_BRANCH === 'main' ? 'production' : 'development'))
+    .pipe(replace('{sentry_dsn}', process.env.SENTRY_DSN))
     .pipe(replace('{package_name}', packageJson.name))
     .pipe(replace('{package_version}', packageJson.version))
     .pipe(sourcemaps.init())
@@ -232,6 +234,7 @@ function watchSrc () {
   watch(paths.scss.src, scss)
   watch(paths.img.src, img)
   watch([paths.js.src, paths.vendorJs.src], js)
+  watch(paths.cloudflareFunctions.src, cloudflareFunctions)
 }
 
 exports.clean = clean
