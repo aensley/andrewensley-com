@@ -75,21 +75,6 @@ $ npm ci && npm run build
 
 ## Updates
 
-### Bootstrap Icons
-
-1. Download the latest version from: https://github.com/twbs/icons/releases/latest/
-1. Extract the following files to `/src/assets/vendor/bootstrap-icons/`:
-
-   ```
-   ├── bootstrap-icons.css
-   ├── bootstrap-icons.json
-   ├── bootstrap-icons.scss
-   ├── fonts
-   │   ├── bootstrap-icons.woff
-   │   └── bootstrap-icons.woff2
-   └── index.html
-   ```
-
 ### Font Awesome
 
 #### Search
@@ -102,9 +87,11 @@ Below are the lists of icons currently in use.
 
 ##### fab
 
+* fa-garmin-connect (custom, added)
 * fa-git-alt
 * fa-github
 * fa-linkedin
+* fa-pluralsight (custom, added)
 * fa-stack-overflow
 
 ##### fas
