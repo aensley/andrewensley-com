@@ -1,9 +1,10 @@
-name: npm-test
+name: ci
 
 on: push
 
 jobs:
   build:
+    name: Test
     runs-on: ubuntu-latest
     strategy:
       matrix:

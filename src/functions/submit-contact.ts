@@ -22,7 +22,8 @@ export const onRequestPost = async function (context) {
       userIp: headers.get('cf-connecting-ip'),
       cfRay: headers.get('cf-ray'),
       referer: headers.get('referer'),
-      environment: headers.get('host')
+      environment: headers.get('host'),
+      version: '{commit_hash}'
     }
 
     // Check for spam.
@@ -46,8 +47,8 @@ export const onRequestPost = async function (context) {
     /* eslint-disable camelcase */
     const { event_id, posted } = captureError(
       await context.env.default.get('SENTRY_DSN'),
-      context.request.headers.get('host'),
-      '{package_name}@{package_version}',
+      '{environment}',
+      '{package_name}@{commit_hash}',
       err,
       context.request,
       ''
@@ -65,14 +66,13 @@ export const onRequestPost = async function (context) {
  * @returns JSON object
  */
 const convertFormDataToJson = function (formData) {
-  const output = {}
+  const output = {
+    name: '',
+    email: '',
+    message: ''
+  }
   for (const [key, value] of formData) {
-    const tmp = output[key]
-    if (tmp === undefined) {
-      output[key] = value
-    } else {
-      output[key] = [].concat(tmp, value)
-    }
+    output[key] = value
   }
 
   return output
