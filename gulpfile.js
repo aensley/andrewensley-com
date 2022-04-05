@@ -18,7 +18,7 @@ const paths = {
   },
   cloudflareFunctions: {
     src: 'src/functions/*.ts',
-    dest: 'dist/functions/'
+    dest: 'functions/'
   },
   html: {
     src: 'src/*.html',
@@ -51,13 +51,25 @@ function getPackageInfo (cb) {
 
 // Wipe the dist directory
 function clean (cb) {
-  del(['dist/', 'src/faviconData.json'])
+  del(['dist/', 'src/faviconData.json', 'functions/'])
   cb()
 }
 
 // Copy Cloudflare Pages Meta Info
 function cloudflareMeta (cb) {
   src(paths.cloudflareMeta.src).pipe(dest(paths.cloudflareMeta.dest))
+  cb()
+}
+
+// Copy Cloudflare Functions
+function cloudflareFunctions (cb) {
+  src(paths.cloudflareFunctions.src)
+    .pipe(replace('{commit_hash}', process.env.CF_PAGES_COMMIT_SHA))
+    .pipe(replace('{branch_name}', process.env.CF_PAGES_BRANCH))
+    .pipe(replace('{environment}', process.env.CF_PAGES_BRANCH === 'main' ? 'production' : 'development'))
+    .pipe(replace('{package_name}', packageJson.name))
+    .pipe(replace('{package_version}', packageJson.version))
+    .pipe(dest(paths.cloudflareFunctions.dest))
   cb()
 }
 
@@ -228,5 +240,5 @@ exports.js = js
 exports.scss = scss
 exports.img = img
 exports.generateFavicon = generateFavicon
-exports.default = series(getPackageInfo, cloudflareMeta, html, scss, img, js, generateFavicon)
+exports.default = series(getPackageInfo, cloudflareFunctions, cloudflareMeta, html, scss, img, js, generateFavicon)
 exports.watch = series(getPackageInfo, watchSrc)
