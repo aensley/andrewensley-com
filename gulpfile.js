@@ -3,12 +3,14 @@ const del = require('del')
 const fileInclude = require('gulp-file-include')
 const htmlmin = require('gulp-htmlmin')
 const replace = require('gulp-replace')
-const uglify = require('gulp-uglify')
 const sass = require('gulp-sass')(require('sass'))
 const imagemin = require('gulp-imagemin')
 const realFavicon = require('gulp-real-favicon')
 const sourcemaps = require('gulp-sourcemaps')
 const fs = require('fs')
+const through = require('through2')
+const named = require('vinyl-named')
+const webpack = require('webpack-stream')
 let packageJson
 
 const paths = {
@@ -30,16 +32,16 @@ const paths = {
     dest: 'dist/assets/img/'
   },
   js: {
-    src: 'src/assets/js/*.js',
-    dest: 'dist/assets/js/'
+    src: [
+      'src/assets/js/first.js',
+      'src/assets/js/app.js'
+    ],
+    dest: 'dist/assets/js/',
+    watch: 'src/assets/js/*.js'
   },
   scss: {
     src: 'src/assets/scss/*.scss',
     dest: 'dist/assets/css/'
-  },
-  vendorJs: {
-    src: 'src/assets/vendor/**/*.js',
-    dest: 'dist/assets/vendor/'
   }
 }
 
@@ -107,21 +109,39 @@ function html (cb) {
 // Minify JavaScript
 function js (cb) {
   src(paths.js.src)
-    .pipe(replace('{commit_hash}', process.env.CF_PAGES_COMMIT_SHA))
-    .pipe(replace('{branch_name}', process.env.CF_PAGES_BRANCH))
-    .pipe(replace('{environment}', process.env.CF_PAGES_BRANCH === 'main' ? 'production' : 'development'))
-    .pipe(replace('{sentry_dsn}', process.env.SENTRY_DSN))
-    .pipe(replace('{package_name}', packageJson.name))
-    .pipe(replace('{package_version}', packageJson.version))
-    .pipe(sourcemaps.init())
-    .pipe(uglify({ toplevel: true }))
-    .pipe(sourcemaps.write('../maps'))
+    .pipe(named())
+    .pipe(webpack({
+      devtool: 'source-map',
+      mode: 'production',
+      module: {
+        rules: [
+          {
+            test: /\.js$/i,
+            loader: 'string-replace-loader',
+            options: {
+              multiple: [
+                { search: '{commit_hash}', replace: process.env.CF_PAGES_COMMIT_SHA },
+                { search: '{branch_name}', replace: process.env.CF_PAGES_BRANCH },
+                { search: '{environment}', replace: process.env.CF_PAGES_BRANCH === 'main' ? 'production' : 'development' },
+                { search: '{sentry_dsn}', replace: process.env.SENTRY_DSN },
+                { search: '{package_name}', replace: packageJson.name },
+                { search: '{package_version}', replace: packageJson.version }
+              ]
+            }
+          }
+        ]
+      }
+    }))
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(through.obj(function (file, enc, cba) {
+      // Dont pipe through any source map files. They will be handled by gulp-sourcemaps.
+      if (!/\.map$/.test(file.path)) {
+        this.push(file)
+      }
+      cba()
+    }))
+    .pipe(sourcemaps.write('.', { addComment: false }))
     .pipe(dest(paths.js.dest))
-  src(paths.vendorJs.src)
-    .pipe(sourcemaps.init())
-    .pipe(uglify({ toplevel: true }))
-    .pipe(sourcemaps.write('../maps'))
-    .pipe(dest(paths.vendorJs.dest))
   cb()
 }
 
@@ -233,7 +253,7 @@ function watchSrc () {
   watch([paths.html.src, paths.htmlinclude], html)
   watch(paths.scss.src, scss)
   watch(paths.img.src, img)
-  watch([paths.js.src, paths.vendorJs.src], js)
+  watch(paths.js.watch, js)
   watch(paths.cloudflareFunctions.src, cloudflareFunctions)
 }
 
