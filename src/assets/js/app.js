@@ -3,6 +3,7 @@ import AOS from 'aos'
 import Typed from 'typed.js'
 import { setLiames, setEnohps } from './crypt.js'
 import { setupContactForm } from './form.js'
+require('./fontawesome')
 require('../../../node_modules/waypoints/lib/noframework.waypoints')
 
 window.addEventListener('load', () => {

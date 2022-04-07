@@ -1,6 +1,5 @@
 import * as Sentry from '@sentry/browser'
 import { Integrations } from '@sentry/tracing'
-require('./fontawesome')
 
 Sentry.init({
   dsn: '{sentry_dsn}',
