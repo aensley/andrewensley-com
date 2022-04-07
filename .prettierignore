@@ -1,4 +1,5 @@
 .github/
+.lighthouseci/
 .vscode/
 dist/
 functions/
