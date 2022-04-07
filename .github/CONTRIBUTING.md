@@ -118,8 +118,8 @@ Below are the lists of icons currently in use.
 #### Update
 
 1. Download the latest "Pro For Web" package here: https://fontawesome.com/v5/download
-1. From the downloaded .zip, extract the `js/brands.js` file to `/src/assets/vendor/fontawesome/custom.js`
+1. From the downloaded .zip, extract the `js/brands.js` file to `/src/assets/js/fontawesome.js`
    1. Reduce the set of icons to what is listed above under [fab](#fab)
-1. From the downloaded .zip, append the `js/solid.js` file to `/src/assets/vendor/fontawesome/custom.js`
+1. From the downloaded .zip, append the `js/solid.js` file to `/src/assets/js/fontawesome.js`
    1. Reduce the set of icons to what is listed above under [fas](#fas)
-1. From the downloaded .zip, append the `js/fontawesome.js` file to `/src/assets/vendor/fontawesome/custom.js`
+1. From the downloaded .zip, append the `js/fontawesome.js` file to `/src/assets/js/fontawesome.js`
