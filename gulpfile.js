@@ -81,12 +81,6 @@ function html (cb) {
   src(paths.html.src)
     .pipe(fileInclude())
     .pipe(
-      replace(/\{\{([\S]+)\.version\}\}/g, function (match, p1) {
-        // See https://mdn.io/string.replace#Specifying_a_function_as_a_parameter
-        return packageJson.extLinks[p1]
-      })
-    )
-    .pipe(
       htmlmin({
         collapseBooleanAttributes: true,
         collapseWhitespace: true,
