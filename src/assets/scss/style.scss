@@ -1,9 +1,15 @@
-@import 'variables';
+/* Vendor CSS */
+@import '../../../node_modules/aos/dist/aos';
+@import '../../../node_modules/bootstrap/dist/css/bootstrap.min';
 
+/* Theme CSS */
+@import 'variables';
 @import 'general';
 @import 'header';
 @import 'nav';
 @import 'hero';
 @import 'sections';
 @import 'footer';
+
+/* My Customizations */
 @import 'customization';
