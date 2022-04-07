@@ -14,13 +14,17 @@ const webpack = require('webpack-stream')
 let packageJson
 
 const paths = {
+  cloudflareFunctions: {
+    src: 'src/functions/*.ts',
+    dest: 'functions/'
+  },
   cloudflareMeta: {
     src: 'src/_*',
     dest: 'dist/'
   },
-  cloudflareFunctions: {
-    src: 'src/functions/*.ts',
-    dest: 'functions/'
+  fonts: {
+    src: 'src/assets/fonts/*.woff2',
+    dest: 'dist/assets/fonts/'
   },
   html: {
     src: 'src/*.html',
@@ -73,6 +77,12 @@ function cloudflareFunctions (cb) {
     .pipe(replace('{package_name}', packageJson.name))
     .pipe(replace('{package_version}', packageJson.version))
     .pipe(dest(paths.cloudflareFunctions.dest))
+  cb()
+}
+
+// Copy Font Files
+function fonts (cb) {
+  src(paths.fonts.src).pipe(dest(paths.fonts.dest))
   cb()
 }
 
@@ -246,6 +256,7 @@ function watchSrc () {
   console.warn('Watching for changes... Press [CTRL+C] to stop.')
   watch([paths.html.src, paths.htmlinclude], html)
   watch(paths.scss.src, scss)
+  watch(paths.fonts.src, fonts)
   watch(paths.img.src, img)
   watch(paths.js.watch, js)
   watch(paths.cloudflareFunctions.src, cloudflareFunctions)
@@ -257,5 +268,5 @@ exports.js = js
 exports.scss = scss
 exports.img = img
 exports.generateFavicon = generateFavicon
-exports.default = series(getPackageInfo, cloudflareFunctions, cloudflareMeta, html, scss, img, js, generateFavicon)
+exports.default = series(getPackageInfo, cloudflareFunctions, cloudflareMeta, html, scss, fonts, img, js, generateFavicon)
 exports.watch = series(getPackageInfo, watchSrc)

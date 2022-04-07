@@ -7,23 +7,11 @@
 
     <div class="row mt-1">
       <div class="col mt-5 mt-lg-0 text-center">
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-          <div class="paypal-donations">
-            <input type="hidden" name="cmd" value="_donations" />
-            <input type="hidden" name="bn" value="TipsandTricks_SP" />
-            <input type="hidden" name="business" value="MLU34HE3KXV96" />
-            <input type="hidden" name="page_style" value="Donations" />
-            <input type="hidden" name="return" value="https://andrewensley.com/donate/" />
-            <input type="hidden" name="item_name" value="AndrewEnsley.com" />
-            <input type="hidden" name="currency_code" value="USD" />
-            <input
-              type="image"
-              id="paypal-donate-image"
-              src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"
-              name="submit"
-              alt="PayPal - The safer, easier way to pay online." />
-            <img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
-          </div>
+        <form action="https://www.paypal.com/donate" method="post" target="_top">
+          <input type="hidden" name="business" value="MLU34HE3KXV96" />
+          <input type="hidden" name="no_recurring" value="0" />
+          <input type="hidden" name="currency_code" value="USD" />
+          <div class="text-center"><button type="submit">Donate</button></div>
         </form>
       </div>
     </div>

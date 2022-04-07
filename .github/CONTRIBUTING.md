@@ -123,3 +123,40 @@ Below are the lists of icons currently in use.
 1. From the downloaded .zip, append the `js/solid.js` file to `/src/assets/js/fontawesome.js`
    1. Reduce the set of icons to what is listed above under [fas](#fas)
 1. From the downloaded .zip, append the `js/fontawesome.js` file to `/src/assets/js/fontawesome.js`
+
+### Google Fonts
+
+#### Search
+
+Search for fonts to use here: https://fonts.google.com/
+
+#### In Use
+
+Below are the lists of fonts currently in use.
+
+##### Open Sans
+
+* regular (400)
+* italic (400i)
+* 700
+
+##### Raleway
+
+* 700
+
+##### Poppins
+
+* regular (400)
+* 700
+
+#### Update
+
+Perform this process for each of the fonts in the "In Use" section above.
+
+1. Go to https://google-webfonts-helper.herokuapp.com/
+1. Search for the font name
+1. Select the `latin` charset
+1. Select the necessary styles (listed under "In Use")
+1. Select **Modern Browsers**
+1. Click the Download files button
+1. From the downloaded .zip, extract the `*.woff2` files to `/src/assets/fonts/`
