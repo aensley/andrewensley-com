@@ -163,7 +163,7 @@ function img (cb) {
           colors: 128,
           interlaced: true
         }),
-        imagemin.mozjpeg({ quality: 70, progressive: true }),
+        imagemin.mozjpeg({ quality: 50, progressive: true }),
         imagemin.optipng({ optimizationLevel: 7 }),
         imagemin.svgo()
       ])
