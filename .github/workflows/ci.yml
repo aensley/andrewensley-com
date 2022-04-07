@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.event.after }}
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
@@ -21,6 +21,10 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build --if-present
+        env:
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          CF_PAGES_COMMIT_SHA: ${{ github.event.after }}
+          CF_PAGES_BRANCH: ${{ github.event.ref }}
       - name: Test
         run: npm test
       - name: run Lighthouse CI
