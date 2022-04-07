@@ -2,12 +2,14 @@
   cursor: pointer;
 }
 
-.pad60 {
-  padding: 7px 0 !important;
-}
-
 .yvnzr {
   display: none;
+}
+
+.section-title {
+  h2 {
+    font-weight: 700;
+  }
 }
 
 .facts {
@@ -27,6 +29,12 @@
       width: 48px;
       height: 48px;
       padding: 12px;
+    }
+    span {
+      font-weight: 700;
+    }
+    p {
+      font-family: $font-default;
     }
   }
 }
@@ -53,6 +61,10 @@
 
 .contact {
   .info {
+    h4 {
+      font-weight: 700;
+    }
+
     .address > span,
     .email > span,
     .phone > span {
@@ -91,7 +103,7 @@
       background: #c3423f;
       text-align: left;
       padding: 15px;
-      font-weight: 600;
+      font-weight: 700;
       & br + br {
         margin-top: 25px;
       }
@@ -103,7 +115,7 @@
       background: #256d1b;
       text-align: center;
       padding: 15px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .loading {
@@ -158,6 +170,24 @@
   .social-links {
     a {
       margin-right: 14px;
+    }
+  }
+}
+
+.skills {
+  .progress .skill {
+    font-weight: 700;
+  }
+}
+
+.resume {
+  .resume-item {
+    h4 {
+      font-weight: 700;
+    }
+
+    h5 {
+      font-weight: 700;
     }
   }
 }
