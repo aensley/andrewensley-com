@@ -154,7 +154,8 @@
   }
 }
 
-button[type='submit'] {
+button[type='submit'],
+#donateButton {
   background: $primary;
   border: 0;
   padding: 10px 35px;

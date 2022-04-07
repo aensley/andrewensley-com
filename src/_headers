@@ -3,7 +3,7 @@
   X-Frame-Options: DENY
   X-XSS-Protection: 1; mode=block
   Referrer-Policy: no-referrer
-  Content-Security-Policy: default-src 'none'; base-uri 'none'; connect-src 'self' https://www.google-analytics.com https://cloudflareinsights.com https://o294760.ingest.sentry.io; font-src 'self'; form-action 'self'; frame-ancestors 'none'; img-src 'self' https://www.gravatar.com; manifest-src 'self'; script-src 'self' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'sha256-ixVUGs3ai0rMA0pgIVBN0KVlYbQip7/5SGmnUwJPNqE=' 'sha256-ESwzs/pwk6xVxIZH3YCxHKVRV9YGR02+QzCza+PCibs=';
+  Content-Security-Policy: default-src 'none'; base-uri 'none'; connect-src 'self' https://www.google-analytics.com https://cloudflareinsights.com https://o294760.ingest.sentry.io; font-src 'self'; form-action 'self'; frame-ancestors 'none'; img-src 'self' https://www.gravatar.com; manifest-src 'self'; script-src 'self' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'sha256-ixVUGs3ai0rMA0pgIVBN0KVlYbQip7/5SGmnUwJPNqE=' 'sha256-ESwzs/pwk6xVxIZH3YCxHKVRV9YGR02+QzCza+PCibs=' data:;
   Permissions-Policy: accelerometer=(), autoplay=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(), hid=()
 https://:project.pages.dev/*
   X-Robots-Tag: noindex
