@@ -5,7 +5,7 @@
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/aensley/andrewensley-com?style=flat-square)
 
 [![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/aensley/andrewensley-com/ci/main?style=flat-square)](https://github.com/aensley/andrewensley-com/actions/workflows/ci.yml?query=branch%3Amain)
-[![Uptime](https://img.shields.io/uptimerobot/ratio/m791390261-544e27ab3c52bd57bb5cfd52?style=flat-square)](https://andrewensley.statuspage.io/)
+[![Uptime](https://andrewensley.com/uptime-badge)](https://andrewensley.statuspage.io/)
 [![Chromium HSTS preload](https://img.shields.io/hsts/preload/andrewensley.com?style=flat-square)](https://hstspreload.org/?domain=andrewensley.com)
 [![Mozilla HTTP Observatory Grade](https://img.shields.io/mozilla-observatory/grade-score/andrewensley.com?publish&style=flat-square)](https://observatory.mozilla.org/analyze/andrewensley.com)
 [![Security Headers](https://img.shields.io/security-headers?style=flat-square&url=https%3A%2F%2Fandrewensley.com)](https://securityheaders.com/?q=andrewensley.com&followRedirects=on)
