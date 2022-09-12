@@ -2,17 +2,52 @@
 
 import { captureError } from '@cfworker/sentry'
 
+interface RequestDetails {
+  name: string
+  email: string
+  message: string
+  userAgent: string
+  userCountry: string
+  userLanguage: string
+  userIp: string
+  cfRay: string
+  referer: string
+  environment: string
+  version: string
+}
+
+interface Comment {
+  user_ip: string
+  user_agent: string
+  referrer: string
+  permalink: string
+  blog: string
+  blog_lang: string
+  blog_charset: string
+  comment_type: string
+  comment_author: string
+  comment_author_email: string
+  comment_author_url: string
+  comment_content: string
+}
+
+interface FormInputs {
+  name: string
+  email: string
+  message: string
+}
+
 /**
  * Handle the POST method.
  *
  * @param context The request context.
  * @returns Response object.
  */
-export const onRequestPost = async function (context) {
+export const onRequestPost = async function (context: any) {
   try {
     const headers = context.request.headers
     const input = convertFormDataToJson(await context.request.formData())
-    const requestDetails = {
+    const requestDetails: RequestDetails = {
       name: input.name,
       email: input.email,
       message: input.message,
@@ -65,15 +100,17 @@ export const onRequestPost = async function (context) {
  * @param formData A FormData object (array of arrays)
  * @returns JSON object
  */
-const convertFormDataToJson = function (formData) {
-  const output = {
+const convertFormDataToJson = function (formData: FormData) {
+  const output: FormInputs = {
     name: '',
     email: '',
     message: ''
   }
-  for (const [key, value] of formData) {
-    output[key] = value
-  }
+  formData.forEach((value: FormDataEntryValue, key: any) => {
+    if (Object.prototype.hasOwnProperty.call(output, key)) {
+      output[key as keyof FormInputs] = value.toString()
+    }
+  })
 
   return output
 }
@@ -81,13 +118,14 @@ const convertFormDataToJson = function (formData) {
 /**
  * Checks if the contact form submission is spam using Akismet's API.
  *
- * @param requestDetails JSON object containing all necessary request details.
+ * @param requestDetails Object containing all necessary request details.
  * @param context        The request context.
  * @returns Boolean true or false whether the submission is spam or not.
  */
-const checkSpam = async function (requestDetails, context) {
+const checkSpam = async function (requestDetails: RequestDetails, context: any) {
   const url = 'https://andrewensley.com'
-  const comment = {
+  const apiKey = await context.env.default.get('AKISMET_KEY')
+  const comment: Comment = {
     user_ip: requestDetails.userIp,
     user_agent: requestDetails.userAgent,
     referrer: requestDetails.referer,
@@ -103,19 +141,16 @@ const checkSpam = async function (requestDetails, context) {
   }
 
   try {
-    const spamResponse = await fetch(
-      'https://' + (await context.env.default.get('AKISMET_KEY')) + '.rest.akismet.com/1.1/comment-check',
-      {
-        body: Object.keys(comment)
-          .map((key) => key + '=' + comment[key])
-          .join('&'),
-        headers: {
-          'User-Agent': 'TypeScript-CheckSpam/1.0 | Akismet/1.1',
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        method: 'POST'
-      }
-    )
+    const spamResponse = await fetch(`https://${apiKey}.rest.akismet.com/1.1/comment-check`, {
+      body: Object.keys(comment)
+        .map((key) => key + '=' + comment[key as keyof Comment])
+        .join('&'),
+      headers: {
+        'User-Agent': 'TypeScript-CheckSpam/1.0 | Akismet/1.1',
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      method: 'POST'
+    })
     return (await spamResponse.text()) === 'true'
   } catch (err) {
     return false
@@ -129,28 +164,31 @@ const checkSpam = async function (requestDetails, context) {
  * @param context        The request context.
  * @returns Response object.
  */
-const sendEmail = async function (requestDetails, context) {
+const sendEmail = async function (requestDetails: RequestDetails, context: any) {
+  const email = await context.env.default.get('EMAIL')
+  const templateId = await context.env.default.get('SENDGRID_TEMPLATE_ID')
+  const apiKey = await context.env.default.get('SENDGRID_API_KEY')
   const emailResponse = await fetch('https://api.sendgrid.com/v3/mail/send', {
     body: JSON.stringify({
       personalizations: [
         {
           to: [
             {
-              email: await context.env.default.get('EMAIL'),
+              email: email,
               name: 'Andrew Ensley'
             }
           ],
           dynamic_template_data: requestDetails
         }
       ],
-      template_id: await context.env.default.get('SENDGRID_TEMPLATE_ID'),
+      template_id: templateId,
       from: {
-        email: await context.env.default.get('EMAIL'),
+        email: email,
         name: requestDetails.name
       }
     }),
     headers: {
-      Authorization: 'Bearer ' + (await context.env.default.get('SENDGRID_API_KEY')),
+      Authorization: 'Bearer ' + apiKey,
       'Content-Type': 'application/json'
     },
     method: 'POST'

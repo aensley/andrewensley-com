@@ -1,66 +1,67 @@
 {
   "name": "andrewensley-com",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "AndrewEnsley.com",
-  "dependencies": {
-    "@srexi/purecounterjs": "^1.5.0",
-    "aos": "^2.3.4",
-    "bootstrap": "^5.1.3",
-    "typed.js": "^2.0.12",
-    "waypoints": "^4.0.1"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aensley/andrewensley-com"
   },
-  "devDependencies": {
-    "@cfworker/sentry": "^1.12.1",
-    "@cloudflare/workers-types": "^3.4.0",
-    "@sentry/browser": "^6.19.4",
-    "@sentry/tracing": "^6.19.4",
-    "del": "^6.0.0",
-    "gulp": "^4.0.2",
-    "gulp-cli": "^2.3.0",
-    "gulp-file-include": "^2.3.0",
-    "gulp-htmlmin": "^5.0.1",
-    "gulp-imagemin": "^7.1.0",
-    "gulp-real-favicon": "^0.3.2",
-    "gulp-replace": "^1.1.3",
-    "gulp-sass": "^5.1.0",
-    "gulp-sourcemaps": "^v3.0.0",
-    "live-server": "^1.2.1",
-    "pre-commit": "^1.2.2",
-    "prettier": "^2.6.0",
-    "sass": "^1.49.9",
-    "standard": "^16.0.4",
-    "string-replace-loader": "^3.1.0",
-    "through2": "^4.0.2",
-    "vinyl-named": "^1.1.0",
-    "webpack-stream": "^7.0.0"
-  },
-  "pre-commit": [
-    "precommit-msg",
-    "test"
-  ],
-  "scripts": {
-    "clean": "gulp clean",
-    "precommit-msg": "echo Running pre-commit checks...",
-    "test": "standard src/assets/js/*.js && prettier --check .",
-    "build": "npm run clean && gulp",
-    "watch": "gulp watch",
-    "start": "live-server dist"
-  },
+  "author": "aensley@users.noreply.github.com",
+  "license": "UNLICENSED",
+  "private": true,
   "standard": {
     "globals": [
-      "AOS",
-      "PureCounter",
-      "Typed",
       "Waypoint"
     ],
     "ignore": [
       "/src/assets/js/fontawesome.js"
     ]
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aensley/andrewensley-com"
+  "pre-commit": [
+    "precommit-msg",
+    "test"
+  ],
+  "scripts": {
+    "dev": "next",
+    "build": "npm run copy:functions && npm run favicon && next build && next export",
+    "favicon": "real-favicon generate src/faviconDescription.json src/faviconData.json public",
+    "copy:functions": "cp -af src/functions/ functions/",
+    "start": "next start",
+    "typecheck": "tsc",
+    "precommit-msg": "echo Running pre-commit checks...",
+    "test": "npm run typecheck && standard src/assets/js/*.js && prettier --check ."
   },
-  "author": "aensley@users.noreply.github.com",
-  "license": "UNLICENSED"
+  "dependencies": {
+    "@cfworker/sentry": "^1.12.1",
+    "classnames": "2.3.1",
+    "date-fns": "2.21.3",
+    "gray-matter": "4.0.3",
+    "next": "latest",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "remark": "14.0.2",
+    "remark-html": "15.0.1",
+    "typescript": "^4.2.4"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^3.5.1",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.6.0",
+    "@types/react": "^17.0.6",
+    "@types/react-dom": "^17.0.5",
+    "@typescript-eslint/eslint-plugin": "^5.20.0",
+    "@typescript-eslint/parser": "^5.20.0",
+    "autoprefixer": "10.4.0",
+    "cli-real-favicon": "^0.0.8",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
+    "eslint-plugin-react": "^7.29.4",
+    "postcss": "8.4.5",
+    "pre-commit": "^1.2.2",
+    "prettier": "^2.6.2",
+    "tailwindcss": "3.0.5"
+  }
 }

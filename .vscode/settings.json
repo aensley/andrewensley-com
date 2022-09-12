@@ -16,10 +16,11 @@
     "titleBar.activeBackground": "#630000",
     "titleBar.activeForeground": "#e7e7e7",
     "titleBar.inactiveBackground": "#63000099",
-    "titleBar.inactiveForeground": "#e7e7e799"
+    "titleBar.inactiveForeground": "#e7e7e799",
+    "commandCenter.border": "#e7e7e799"
   },
   "peacock.color": "#630000",
-  "liveServer.settings.root": "/dist",
+  "liveServer.settings.root": "/out",
   "liveServer.settings.donotShowInfoMsg": true,
   "liveServer.settings.donotVerifyTags": true,
   "editor.renderWhitespace": "all",
