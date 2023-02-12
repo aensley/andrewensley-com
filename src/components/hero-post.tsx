@@ -2,18 +2,17 @@ import Avatar from './avatar'
 import DateFormatter from './date-formatter'
 import CoverImage from './cover-image'
 import Link from 'next/link'
-import Author from '../types/author'
+import { AUTHOR_NAME, AUTHOR_PICTURE } from '../lib/constants'
 
 type Props = {
   title: string
   coverImage: string
   date: string
   excerpt: string
-  author: Author
   slug: string
 }
 
-const HeroPost = ({ title, coverImage, date, excerpt, author, slug }: Props) => {
+const HeroPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
   return (
     <section>
       <div className="mb-8 md:mb-16">
@@ -23,7 +22,7 @@ const HeroPost = ({ title, coverImage, date, excerpt, author, slug }: Props) => 
         <div>
           <h3 className="mb-4 text-4xl lg:text-5xl leading-tight">
             <Link as={`/posts/${slug}`} href="/posts/[slug]">
-              <a className="hover:underline">{title}</a>
+              <span className="hover:underline">{title}</span>
             </Link>
           </h3>
           <div className="mb-4 md:mb-0 text-lg">
@@ -32,7 +31,7 @@ const HeroPost = ({ title, coverImage, date, excerpt, author, slug }: Props) => 
         </div>
         <div>
           <p className="text-lg leading-relaxed mb-4">{excerpt}</p>
-          <Avatar name={author.name} picture={author.picture} />
+          <Avatar name={AUTHOR_NAME} picture={AUTHOR_PICTURE} />
         </div>
       </div>
     </section>
