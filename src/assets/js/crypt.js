@@ -1,5 +1,4 @@
 const liames = document.getElementsByClassName('liame')
-const enohps = document.getElementsByClassName('enohp')
 const sqtlki = [
   'Lg',
   'aA',
@@ -25,9 +24,6 @@ const jncowu = []
 const eadgwr = ['bw', 'bQ', 'bA', 'aQ', 'Og', 'YQ', 'dA']
 const ichxmy = [5, 0, 3, 2, 6, 1, 4]
 const oaneic = []
-const lyxlwb = ['NQ', 'KQ', 'NQ', 'MQ', 'Mg', 'IA', 'OA', 'OA', 'NQ', 'KA', 'Mw', 'LQ', 'MA', 'MA']
-const kjkwtr = [13, 4, 10, 11, 12, 5, 8, 1, 2, 0, 6, 9, 7, 3]
-const twbdtn = []
 
 const getOaneicString = () => {
   let asdfoin = ''
@@ -47,44 +43,10 @@ const getLiameString = () => {
   return liame
 }
 
-const getEnohpString = () => {
-  let enohp = ''
-  for (let j = 0; j < twbdtn.length; j++) {
-    enohp += window.atob(twbdtn[j] + '==')
-  }
-
-  return enohp
-}
-
 const openLiame = (e) => {
   e.stopPropagation()
   window.location = getOaneicString() + getLiameString()
   return false
-}
-
-export const setEnohps = () => {
-  for (let i = 0; i < kjkwtr.length; i++) {
-    twbdtn[kjkwtr[i]] = lyxlwb[i]
-  }
-
-  for (let i = 0; i < enohps.length; i++) {
-    const enohp = getEnohpString()
-    const enohpSpan = document.createElement('span')
-    for (let j = 0; j < enohp.length; j++) {
-      const span = document.createElement('span')
-      span.className = 'yunzr'
-      span.appendChild(document.createTextNode(enohp[j]))
-      enohpSpan.appendChild(span)
-      if (yesOrNo()) {
-        const span = document.createElement('span')
-        span.className = 'yvnzr'
-        span.appendChild(document.createTextNode(randomString(1)))
-        enohpSpan.appendChild(span)
-      }
-    }
-
-    enohps[i].appendChild(enohpSpan)
-  }
 }
 
 export const setLiames = () => {
