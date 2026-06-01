@@ -1,3 +1,6 @@
+@use 'sass:color';
+@use 'variables' as *;
+
 /*--------------------------------------------------------------
 # Navigation Menu
 --------------------------------------------------------------*/
@@ -30,7 +33,7 @@
     transition: 0.3s;
     font-size: 15px;
     border-radius: 50px;
-    background: lighten($secondary, 64);
+    background: color.adjust($secondary, $lightness: 64%);
     height: 56px;
     width: 100%;
     overflow: hidden;

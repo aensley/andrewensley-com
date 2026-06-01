@@ -1,3 +1,6 @@
+@use 'sass:color';
+@use 'variables' as *;
+
 #paypal-donate-image {
   cursor: pointer;
 }
@@ -73,7 +76,7 @@
       float: left;
       width: 44px;
       height: 44px;
-      background: lighten($secondary, 64);
+      background: color.adjust($secondary, $lightness: 64%);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -163,7 +166,7 @@ button[type='submit'],
   transition: 0.4s;
   border-radius: 50px;
   &:hover {
-    background: lighten($primary, 8);
+    background: color.adjust($primary, $lightness: 8%);
   }
 }
 

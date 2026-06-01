@@ -1,3 +1,6 @@
+@use 'sass:color';
+@use 'variables' as *;
+
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
@@ -12,7 +15,7 @@ a {
 }
 
 a:hover {
-  color: lighten($primary, 10);
+  color: color.adjust($primary, $lightness: 10%);
   text-decoration: none;
 }
 
@@ -48,7 +51,7 @@ h6 {
   }
 
   &:hover {
-    background: lighten($primary, 8);
+    background: color.adjust($primary, $lightness: 8%);
     color: #fff;
   }
 
