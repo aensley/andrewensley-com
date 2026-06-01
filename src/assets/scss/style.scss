@@ -1,18 +1,17 @@
 /* Vendor CSS */
-@import '../../../node_modules/aos/dist/aos';
-@import '../../../node_modules/bootstrap/dist/css/bootstrap.min';
+@use '../../../node_modules/aos/dist/aos';
+@use '../../../node_modules/bootstrap/dist/css/bootstrap.min';
 
 /* Google Fonts */
-@import 'fonts';
+@use 'fonts';
 
 /* Theme CSS */
-@import 'variables';
-@import 'general';
-@import 'header';
-@import 'nav';
-@import 'hero';
-@import 'sections';
-@import 'footer';
+@use 'general';
+@use 'header';
+@use 'nav';
+@use 'hero';
+@use 'sections';
+@use 'footer';
 
 /* My Customizations */
-@import 'customization';
+@use 'customization';

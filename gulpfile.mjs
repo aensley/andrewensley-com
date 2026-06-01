@@ -1,16 +1,19 @@
-const { watch, src, dest, series } = require('gulp')
-const del = require('del')
-const fileInclude = require('gulp-file-include')
-const htmlmin = require('gulp-htmlmin')
-const replace = require('gulp-replace')
-const sass = require('gulp-sass')(require('sass'))
-const imagemin = require('gulp-imagemin')
-const realFavicon = require('gulp-real-favicon')
-const sourcemaps = require('gulp-sourcemaps')
-const fs = require('fs')
-const through = require('through2')
-const named = require('vinyl-named')
-const webpack = require('webpack-stream')
+import { watch as gulpWatch, src, dest, series } from 'gulp'
+import { deleteAsync } from 'del'
+import fileInclude from 'gulp-file-include'
+import htmlmin from 'gulp-htmlmin'
+import replace from 'gulp-replace'
+import gulpSass from 'gulp-sass'
+import * as sass from 'sass'
+import imagemin, { gifsicle, mozjpeg, optipng, svgo } from 'gulp-imagemin'
+import realFavicon from 'gulp-real-favicon'
+import sourcemaps from 'gulp-sourcemaps'
+import { readFileSync } from 'fs'
+import through from 'through2'
+import named from 'vinyl-named'
+import webpack from 'webpack-stream'
+
+const sassPlugin = gulpSass(sass)
 let packageJson
 
 const paths = {
@@ -36,10 +39,7 @@ const paths = {
     dest: 'dist/assets/img/'
   },
   js: {
-    src: [
-      'src/assets/js/first.js',
-      'src/assets/js/app.js'
-    ],
+    src: ['src/assets/js/first.js', 'src/assets/js/app.js'],
     dest: 'dist/assets/js/',
     watch: 'src/assets/js/*.js'
   },
@@ -50,25 +50,24 @@ const paths = {
 }
 
 // Get Package information from package.json
-function getPackageInfo (cb) {
-  packageJson = JSON.parse(fs.readFileSync('./package.json'))
+function getPackageInfo(cb) {
+  packageJson = JSON.parse(readFileSync('./package.json'))
   cb()
 }
 
 // Wipe the dist directory
-function clean (cb) {
-  del(['dist/', 'src/faviconData.json', 'functions/'])
-  cb()
+function clean() {
+  return deleteAsync(['dist/', 'src/faviconData.json', 'functions/'])
 }
 
 // Copy Cloudflare Pages Meta Info
-function cloudflareMeta (cb) {
+function cloudflareMeta(cb) {
   src(paths.cloudflareMeta.src).pipe(dest(paths.cloudflareMeta.dest))
   cb()
 }
 
 // Copy Cloudflare Functions
-function cloudflareFunctions (cb) {
+function cloudflareFunctions(cb) {
   src(paths.cloudflareFunctions.src)
     .pipe(replace('{commit_hash}', process.env.CF_PAGES_COMMIT_SHA))
     .pipe(replace('{branch_name}', process.env.CF_PAGES_BRANCH))
@@ -81,13 +80,12 @@ function cloudflareFunctions (cb) {
 }
 
 // Copy Font Files
-function fonts (cb) {
-  src(paths.fonts.src).pipe(dest(paths.fonts.dest))
-  cb()
+function fonts() {
+  return src(paths.fonts.src, { encoding: false }).pipe(dest(paths.fonts.dest, { encoding: false }))
 }
 
 // Minify HTML
-function html (cb) {
+function html(cb) {
   src(paths.html.src)
     .pipe(fileInclude())
     .pipe(
@@ -109,76 +107,82 @@ function html (cb) {
 }
 
 // Minify JavaScript
-function js (cb) {
+function js(cb) {
   src(paths.js.src)
     .pipe(named())
-    .pipe(webpack({
-      devtool: 'source-map',
-      mode: 'production',
-      module: {
-        rules: [
-          {
-            test: /\.js$/i,
-            loader: 'string-replace-loader',
-            options: {
-              multiple: [
-                { search: '{commit_hash}', replace: process.env.CF_PAGES_COMMIT_SHA },
-                { search: '{branch_name}', replace: process.env.CF_PAGES_BRANCH },
-                { search: '{environment}', replace: process.env.CF_PAGES_BRANCH === 'main' ? 'production' : 'development' },
-                { search: '{sentry_dsn}', replace: process.env.SENTRY_DSN },
-                { search: '{package_name}', replace: packageJson.name },
-                { search: '{package_version}', replace: packageJson.version }
-              ]
+    .pipe(
+      webpack({
+        devtool: 'source-map',
+        mode: 'production',
+        module: {
+          rules: [
+            {
+              test: /\.js$/i,
+              loader: 'string-replace-loader',
+              options: {
+                multiple: [
+                  { search: '{commit_hash}', replace: process.env.CF_PAGES_COMMIT_SHA },
+                  { search: '{branch_name}', replace: process.env.CF_PAGES_BRANCH },
+                  {
+                    search: '{environment}',
+                    replace: process.env.CF_PAGES_BRANCH === 'main' ? 'production' : 'development'
+                  },
+                  { search: '{sentry_dsn}', replace: process.env.SENTRY_DSN },
+                  { search: '{package_name}', replace: packageJson.name },
+                  { search: '{package_version}', replace: packageJson.version }
+                ]
+              }
             }
-          }
-        ]
-      }
-    }))
+          ]
+        }
+      })
+    )
     .pipe(sourcemaps.init({ loadMaps: true }))
-    .pipe(through.obj(function (file, enc, cba) {
-      // Dont pipe through any source map files. They will be handled by gulp-sourcemaps.
-      if (!/\.map$/.test(file.path)) {
-        this.push(file)
-      }
-      cba()
-    }))
+    .pipe(
+      through.obj(function (file, enc, cba) {
+        // Dont pipe through any source map files. They will be handled by gulp-sourcemaps.
+        if (!/\.map$/.test(file.path)) {
+          this.push(file)
+        }
+        cba()
+      })
+    )
     .pipe(sourcemaps.write('.', { addComment: false }))
     .pipe(dest(paths.js.dest))
   cb()
 }
 
 // Compile SCSS
-function scss (cb) {
+function scss(cb) {
   src(paths.scss.src)
-    .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
+    .pipe(sassPlugin({ outputStyle: 'compressed' }).on('error', sassPlugin.logError))
     .pipe(dest(paths.scss.dest))
   cb()
 }
 
 // Compress images
-function img (cb) {
-  src(paths.img.src)
+function img() {
+  return src(paths.img.src, { encoding: false })
     .pipe(
       imagemin([
-        imagemin.gifsicle({
+        gifsicle({
           optimizationLevel: 3,
           colors: 128,
           interlaced: true
         }),
-        imagemin.mozjpeg({ quality: 50, progressive: true }),
-        imagemin.optipng({ optimizationLevel: 7 }),
-        imagemin.svgo()
+        mozjpeg({ quality: 50, progressive: true }),
+        optipng({ optimizationLevel: 7 }),
+        svgo()
       ])
     )
-    .pipe(dest(paths.img.dest))
-  cb()
+    .pipe(dest(paths.img.dest, { encoding: false }))
 }
 
 // File where the favicon markups are stored
 const FAVICON_DATA_FILE = 'src/faviconData.json'
 
 // Generate the favicon
-function generateFavicon (cb) {
+function generateFavicon(cb) {
   return realFavicon.generateFavicon(
     {
       masterPicture: 'src/icon.png',
@@ -250,21 +254,16 @@ function generateFavicon (cb) {
 }
 
 // Watch for changes
-function watchSrc () {
+function watchSrc() {
   console.warn('Watching for changes... Press [CTRL+C] to stop.')
-  watch([paths.html.src, paths.htmlinclude], html)
-  watch(paths.scss.src, scss)
-  watch(paths.fonts.src, fonts)
-  watch(paths.img.src, img)
-  watch(paths.js.watch, js)
-  watch(paths.cloudflareFunctions.src, cloudflareFunctions)
+  gulpWatch([paths.html.src, paths.htmlinclude], html)
+  gulpWatch(paths.scss.src, scss)
+  gulpWatch(paths.fonts.src, fonts)
+  gulpWatch(paths.img.src, img)
+  gulpWatch(paths.js.watch, js)
+  gulpWatch(paths.cloudflareFunctions.src, cloudflareFunctions)
 }
 
-exports.clean = clean
-exports.html = html
-exports.js = js
-exports.scss = scss
-exports.img = img
-exports.generateFavicon = generateFavicon
-exports.default = series(getPackageInfo, cloudflareFunctions, cloudflareMeta, html, scss, fonts, img, js, generateFavicon)
-exports.watch = series(getPackageInfo, watchSrc)
+export { clean, html, js, scss, img, generateFavicon }
+export const watch = series(getPackageInfo, watchSrc)
+export default series(getPackageInfo, cloudflareFunctions, cloudflareMeta, html, scss, fonts, img, js, generateFavicon)

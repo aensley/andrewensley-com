@@ -1,8 +1,11 @@
+@use 'sass:color';
+@use 'variables' as *;
+
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
 #footer {
-  background: lighten($secondary, 66);
+  background: color.adjust($secondary, $lightness: 66%);
   color: $secondary;
   font-size: 14px;
   text-align: center;
@@ -40,7 +43,7 @@
       height: 36px;
       transition: 0.3s;
       &:hover {
-        background: lighten($primary, 8);
+        background: color.adjust($primary, $lightness: 8%);
         color: #fff;
         text-decoration: none;
       }

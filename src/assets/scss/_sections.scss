@@ -1,3 +1,6 @@
+@use 'sass:color';
+@use 'variables' as *;
+
 /*--------------------------------------------------------------
 # Sections General
 --------------------------------------------------------------*/
@@ -55,7 +58,7 @@ section {
     h3 {
       font-weight: 700;
       font-size: 26px;
-      color: lighten($secondary, 20);
+      color: color.adjust($secondary, $lightness: 20%);
     }
 
     ul {
@@ -117,7 +120,7 @@ section {
       font-size: 36px;
       display: block;
       font-weight: 600;
-      color: darken($primary, 30);
+      color: color.adjust($primary, $lightness: -30%);
     }
 
     p {
@@ -154,7 +157,7 @@ section {
   }
 
   .progress-bar-wrap {
-    background: lighten($secondary, 64);
+    background: color.adjust($secondary, $lightness: 64%);
   }
 
   .progress-bar {
@@ -195,7 +198,7 @@ section {
 
     h5 {
       font-size: 16px;
-      background: lighten($secondary, 66);
+      background: color.adjust($secondary, $lightness: 66%);
       padding: 5px 15px;
       display: inline-block;
       font-weight: 600;
@@ -242,7 +245,7 @@ section {
       float: left;
       width: 44px;
       height: 44px;
-      background: lighten($primary, 59);
+      background: color.adjust($primary, $lightness: 59%);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -262,7 +265,7 @@ section {
       padding: 0 0 0 60px;
       margin-bottom: 0;
       font-size: 14px;
-      color: lighten($secondary, 20);
+      color: color.adjust($secondary, $lightness: 20%);
     }
 
     .email,
@@ -351,7 +354,7 @@ section {
       transition: 0.4s;
       border-radius: 50px;
       &:hover {
-        background: lighten($primary, 8);
+        background: color.adjust($primary, $lightness: 8%);
       }
     }
   }
