@@ -1,67 +1,83 @@
 {
   "name": "andrewensley-com",
   "version": "1.0.0",
-  "description": "AndrewEnsley.com",
-  "dependencies": {
-    "@srexi/purecounterjs": "^1.5.0",
-    "aos": "^2.3.4",
-    "bootstrap": "^5.3.8",
-    "typed.js": "^3.0.0",
-    "waypoints": "^4.0.1"
-  },
-  "devDependencies": {
-    "@cfworker/sentry": "^5.0.3",
-    "@cloudflare/workers-types": "^4.20260601.1",
-    "@sentry/browser": "^10.55.0",
-    "@sentry/tracing": "^7.120.4",
-    "del": "^8.0.1",
-    "gulp": "^5.0.1",
-    "gulp-cli": "^3.1.0",
-    "gulp-file-include": "^2.3.0",
-    "gulp-htmlmin": "^5.0.1",
-    "gulp-imagemin": "^9.2.0",
-    "gulp-real-favicon": "^0.3.2",
-    "gulp-replace": "^1.1.4",
-    "gulp-sass": "^6.0.1",
-    "gulp-sourcemaps": "^v3.0.0",
-    "live-server": "^1.2.2",
-    "pre-commit": "^2.0.0",
-    "prettier": "^3.8.3",
-    "sass": "^1.100.0",
-    "standard": "^17.1.2",
-    "string-replace-loader": "^3.3.0",
-    "through2": "^5.0.1",
-    "vinyl-named": "^1.1.0",
-    "webpack-stream": "^7.0.0"
-  },
-  "pre-commit": [
-    "precommit-msg",
-    "test"
-  ],
+  "private": true,
   "scripts": {
-    "clean": "gulp clean",
-    "precommit-msg": "echo Running pre-commit checks...",
-    "test": "standard src/assets/js/*.js && prettier --check .",
-    "build": "npm run clean && gulp",
-    "watch": "gulp watch",
-    "start": "live-server dist",
+    "dev": "next dev --port 5050",
+    "build": "next build",
+    "build:sourcemaps": "GENERATE_SOURCEMAPS=true next build",
+    "start": "next start",
+    "preview": "npx serve out -l 4040",
+    "lint": "ts-standard && prettier --check .",
+    "lint:fix": "ts-standard --fix && prettier --write .",
+    "pre-commit-msg": "echo Running pre-commit checks...",
     "update": "npx npm-check-updates -u && npm update"
   },
-  "standard": {
-    "globals": [
-      "AOS",
-      "PureCounter",
-      "Typed",
-      "Waypoint"
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "highlight.js": "^11.11.1",
+    "next": "^16.2.7",
+    "next-mdx-remote": "^6.0.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "rehype-highlight": "^7.0.2",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "@types/react": "^19.2.16",
+    "@types/react-dom": "^19.2.3",
+    "prettier": "^3.8.3",
+    "sass": "^1.100.0",
+    "ts-standard": "^12.0.2",
+    "typescript": "^6.0.3"
+  },
+  "pre-commit": {
+    "run": [
+      "pre-commit-msg",
+      "test"
     ],
+    "silent": true,
+    "colors": true
+  },
+  "engines": {
+    "node": ">= 22.14"
+  },
+  "eslintConfig": {
+    "extends": "standard-with-typescript",
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    }
+  },
+  "ts-standard": {
+    "globals": [],
     "ignore": [
-      "/src/assets/js/fontawesome.js"
+      "/test/**/*.ts"
     ]
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aensley/andrewensley-com"
+  "prettier": {
+    "tabWidth": 2,
+    "printWidth": 120,
+    "useTabs": false,
+    "endOfLine": "lf",
+    "trailingComma": "none",
+    "semi": false,
+    "singleQuote": true,
+    "arrowParens": "always",
+    "bracketSameLine": true,
+    "bracketSpacing": true,
+    "embeddedLanguageFormatting": "auto",
+    "htmlWhitespaceSensitivity": "css",
+    "insertPragma": false,
+    "jsxSingleQuote": false,
+    "proseWrap": "preserve",
+    "quoteProps": "as-needed",
+    "requirePragma": false,
+    "vueIndentScriptAndStyle": false
   },
-  "author": "aensley@users.noreply.github.com",
-  "license": "UNLICENSED"
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }

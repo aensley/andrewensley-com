@@ -1,6 +1,6 @@
 ci:
   collect:
-    staticDistDir: './dist/'
+    staticDistDir: './out/'
     isSinglePageApplication: true
   upload:
     target: 'temporary-public-storage'

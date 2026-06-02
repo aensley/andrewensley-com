@@ -1,0 +1,32 @@
+---
+title: Getting Started
+date: '2026-05-04'
+excerpt: How to add new posts and customise the blog.
+category: Guides
+tags:
+  - setup
+  - mdx
+---
+
+# Getting Started
+
+Adding a new post is straightforward:
+
+1. Create a `.mdx` file in the `posts/` folder.
+2. Add frontmatter at the top with at least a `title` and `date`.
+3. Write your content in Markdown (or MDX).
+
+## Frontmatter Fields
+
+| Field      | Required | Description                                    |
+| ---------- | -------- | ---------------------------------------------- |
+| `title`    | Yes      | Displayed as the page heading                  |
+| `date`     | No       | Used for sorting (YYYY-MM-DD)                  |
+| `excerpt`  | No       | Short summary on the index page                |
+| `category` | No       | Single category; links to `/categories/<name>` |
+| `tags`     | No       | YAML list of tags; each links to `/tags/<tag>` |
+
+## Adding React Components
+
+Because posts are MDX you can pass custom components through the `MDXRemote` `components` prop
+in `pages/posts/[slug].tsx` and then use them inside any post.

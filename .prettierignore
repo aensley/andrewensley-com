@@ -1,9 +1,7 @@
-.github/
-.lighthouseci/
-.vscode/
-dist/
-functions/
-node_modules/
-src/_headers
-src/faviconData.json
-src/assets/js/fontawesome.js
+/.lighthouseci/
+/.next/
+/.vscode/
+/node_modules/
+/out/
+/next-env.d.ts
+/tsconfig.tsbuildinfo
