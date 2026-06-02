@@ -1,5 +1,6 @@
 /.lighthouseci/
 /.next/
+/functions/
 /node_modules/
 /out/
 /next-env.d.ts

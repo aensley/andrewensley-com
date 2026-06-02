@@ -5,13 +5,16 @@ interface LayoutProps {
   children: React.ReactNode
 }
 
-export default function Layout ({ children }: LayoutProps) {
+const MAX_WIDTH = 720
+const FONT_WEIGHT_BOLD = 700
+
+export default function Layout({ children }: LayoutProps): React.JSX.Element {
   return (
     <div style={{ background: '#222', minHeight: '100vh' }}>
       <header style={{ background: '#303030', borderBottom: '1px solid #444', padding: '0 1rem' }}>
         <div
           style={{
-            maxWidth: 720,
+            maxWidth: MAX_WIDTH,
             margin: '0 auto',
             padding: '1rem 0',
             display: 'flex',
@@ -21,7 +24,7 @@ export default function Layout ({ children }: LayoutProps) {
             gap: '1rem'
           }}
         >
-          <Link href='/' style={{ fontSize: '1.5rem', fontWeight: 700, color: '#fff' }}>
+          <Link href='/' style={{ fontSize: '1.5rem', fontWeight: FONT_WEIGHT_BOLD, color: '#fff' }}>
             My Blog
           </Link>
           <nav style={{ display: 'flex', gap: '1.5rem', fontSize: '0.95rem' }}>
@@ -37,7 +40,7 @@ export default function Layout ({ children }: LayoutProps) {
           </nav>
         </div>
       </header>
-      <div style={{ maxWidth: 720, margin: '0 auto', padding: '2rem 1rem' }}>
+      <div style={{ maxWidth: MAX_WIDTH, margin: '0 auto', padding: '2rem 1rem' }}>
         <main>{children}</main>
         <footer
           style={{

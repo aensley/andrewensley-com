@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 5050",
-    "build": "next build",
-    "build:sourcemaps": "GENERATE_SOURCEMAPS=true next build",
+    "copy:functions": "rm -rf functions && cp -r src/functions functions",
+    "build": "npm run copy:functions && next build",
+    "build:sourcemaps": "npm run copy:functions && GENERATE_SOURCEMAPS=true next build",
     "start": "next start",
     "preview": "npx serve out -l 4040",
-    "lint": "ts-standard && prettier --check .",
-    "lint:fix": "ts-standard --fix && prettier --write .",
+    "lint": "eslint . && prettier --check .",
+    "lint:fix": "eslint --fix . && prettier --write .",
     "pre-commit-msg": "echo Running pre-commit checks...",
     "update": "npx npm-check-updates -u && npm update"
   },
@@ -27,33 +28,27 @@
     "@types/node": "^25.9.1",
     "@types/react": "^19.2.16",
     "@types/react-dom": "^19.2.3",
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^9.35.0",
+    "eslint-config-love": "^154.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "pre-commit": "^2.0.0",
+    "typescript-eslint": "^8.60.1",
     "prettier": "^3.8.3",
     "sass": "^1.100.0",
-    "ts-standard": "^12.0.2",
     "typescript": "^6.0.3"
   },
   "pre-commit": {
     "run": [
       "pre-commit-msg",
-      "test"
+      "lint"
     ],
     "silent": true,
     "colors": true
   },
   "engines": {
     "node": ">= 22.14"
-  },
-  "eslintConfig": {
-    "extends": "standard-with-typescript",
-    "parserOptions": {
-      "project": "./tsconfig.json"
-    }
-  },
-  "ts-standard": {
-    "globals": [],
-    "ignore": [
-      "/test/**/*.ts"
-    ]
   },
   "prettier": {
     "tabWidth": 2,
@@ -64,12 +59,12 @@
     "semi": false,
     "singleQuote": true,
     "arrowParens": "always",
-    "bracketSameLine": true,
+    "bracketSameLine": false,
     "bracketSpacing": true,
     "embeddedLanguageFormatting": "auto",
     "htmlWhitespaceSensitivity": "css",
     "insertPragma": false,
-    "jsxSingleQuote": false,
+    "jsxSingleQuote": true,
     "proseWrap": "preserve",
     "quoteProps": "as-needed",
     "requirePragma": false,
