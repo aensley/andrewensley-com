@@ -3,16 +3,16 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 5050",
     "copy:functions": "rm -rf functions && cp -r src/functions functions",
+    "dev": "next dev --port 5050",
     "build": "npm run copy:functions && next build",
     "build:sourcemaps": "npm run copy:functions && GENERATE_SOURCEMAPS=true next build",
-    "start": "next start",
     "preview": "npx serve out -l 4040",
     "lint": "eslint . && prettier --check .",
     "lint:fix": "eslint --fix . && prettier --write .",
     "pre-commit-msg": "echo Running pre-commit checks...",
-    "update": "npx npm-check-updates -u && npm update"
+    "check:update": "npx npm-check-updates",
+    "update:all": "npx npm-check-updates -u && npm update"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
