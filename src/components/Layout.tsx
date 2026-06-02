@@ -5,7 +5,7 @@ interface LayoutProps {
   children: React.ReactNode
 }
 
-const MAX_WIDTH = 720
+const MAX_WIDTH = 960
 const FONT_WEIGHT_BOLD = 700
 
 export default function Layout({ children }: LayoutProps): React.JSX.Element {
