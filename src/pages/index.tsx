@@ -1,7 +1,6 @@
 import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
-import { Button } from 'react-bootstrap'
 import Layout from '../components/Layout'
 import { getAllPosts, type PostMeta } from '../lib/posts'
 import { formatDate } from '../lib/format'
@@ -27,15 +26,11 @@ const Home: NextPage<HomeProps> = ({ recentPosts }) => (
         or learn more <Link href='/about'>about me</Link>.
       </p>
       <div className='d-flex gap-2 mt-3'>
-        <Link href='/blog' passHref legacyBehavior>
-          <Button as='a' variant='primary'>
-            Read the blog
-          </Button>
+        <Link href='/blog' className='btn btn-primary'>
+          Read the blog
         </Link>
-        <Link href='/contact' passHref legacyBehavior>
-          <Button as='a' variant='secondary'>
-            Get in touch
-          </Button>
+        <Link href='/contact' className='btn btn-secondary'>
+          Get in touch
         </Link>
       </div>
     </section>
