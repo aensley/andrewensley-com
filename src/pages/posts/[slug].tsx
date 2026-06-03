@@ -7,6 +7,7 @@ import remarkGfm from 'remark-gfm'
 import rehypeHighlight from 'rehype-highlight'
 import Layout from '../../components/Layout'
 import { getAllPosts, getPostBySlug, type PostMeta } from '../../lib/posts'
+import { formatDate } from '../../lib/format'
 
 interface PostPageProps {
   meta: PostMeta
@@ -36,7 +37,7 @@ const PostPage: NextPage<PostPageProps> = ({ meta, source }) => (
             color: '#888'
           }}
         >
-          {meta.date !== '' && <span>{meta.date}</span>}
+          {meta.date !== '' && <span>{formatDate(meta.date)}</span>}
           {meta.category !== undefined && (
             <>
               {meta.date !== '' && <span>·</span>}

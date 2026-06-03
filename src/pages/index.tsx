@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../components/Layout'
 import { getAllPosts, type PostMeta } from '../lib/posts'
+import { formatDate } from '../lib/format'
 
 interface HomeProps {
   recentPosts: PostMeta[]
@@ -62,7 +63,9 @@ const Home: NextPage<HomeProps> = ({ recentPosts }) => (
                 {post.title}
               </Link>
               {post.date !== '' && (
-                <span style={{ marginLeft: '0.75rem', fontSize: '0.85rem', color: '#888' }}>{post.date}</span>
+                <span style={{ marginLeft: '0.75rem', fontSize: '0.85rem', color: '#888' }}>
+                  {formatDate(post.date)}
+                </span>
               )}
               {post.excerpt !== undefined && (
                 <p style={{ margin: '0.3rem 0 0', color: '#adb5bd', fontSize: '0.95rem' }}>{post.excerpt}</p>

@@ -27,7 +27,7 @@
     "@types/node": "^25.9.1",
     "@types/react": "^19.2.16",
     "@types/react-dom": "^19.2.3",
-    "czg": "^1.11.0",
+    "czg": "^1.13.1",
     "eslint": "^9.35.0",
     "eslint-config-love": "^154.0.0",
     "eslint-config-prettier": "^10.1.8",

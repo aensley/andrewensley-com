@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../components/Layout'
 import { getAllPosts, type PostMeta } from '../lib/posts'
+import { formatDate } from '../lib/format'
 
 interface BlogProps {
   posts: PostMeta[]
@@ -40,7 +41,7 @@ const Blog: NextPage<BlogProps> = ({ posts }) => (
               marginTop: '0.25rem'
             }}
           >
-            {post.date !== '' && <span>{post.date}</span>}
+            {post.date !== '' && <span>{formatDate(post.date)}</span>}
             {post.category !== undefined && (
               <>
                 {post.date !== '' && <span>·</span>}
