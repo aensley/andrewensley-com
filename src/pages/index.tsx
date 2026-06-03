@@ -1,6 +1,7 @@
 import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
+import { Button } from 'react-bootstrap'
 import Layout from '../components/Layout'
 import { getAllPosts, type PostMeta } from '../lib/posts'
 import { formatDate } from '../lib/format'
@@ -9,10 +10,7 @@ interface HomeProps {
   recentPosts: PostMeta[]
 }
 
-const ZERO = 0
-const LINE_HEIGHT = 1.7
-const BORDER_RADIUS_MD = 6
-const FONT_WEIGHT_SEMIBOLD = 600
+const EMPTY = 0
 const RECENT_POST_COUNT = 3
 
 const Home: NextPage<HomeProps> = ({ recentPosts }) => (
@@ -22,58 +20,41 @@ const Home: NextPage<HomeProps> = ({ recentPosts }) => (
       <meta name='description' content='Welcome to My Blog' />
     </Head>
 
-    <section style={{ marginBottom: '3rem' }}>
-      <h1 style={{ marginTop: ZERO, fontSize: '2.5rem' }}>Welcome to My Blog</h1>
-      <p style={{ fontSize: '1.15rem', color: '#adb5bd', lineHeight: LINE_HEIGHT }}>
+    <section className='mb-5'>
+      <h1 className='mt-0'>Welcome to My Blog</h1>
+      <p className='lead text-muted'>
         A place to share thoughts on software, technology, and everything in between. Dive into the latest posts below
         or learn more <Link href='/about'>about me</Link>.
       </p>
-      <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
-        <Link
-          href='/blog'
-          style={{
-            background: '#375a7f',
-            color: '#fff',
-            padding: '0.6rem 1.4rem',
-            borderRadius: BORDER_RADIUS_MD,
-            fontWeight: FONT_WEIGHT_SEMIBOLD
-          }}
-        >
-          Read the blog
+      <div className='d-flex gap-2 mt-3'>
+        <Link href='/blog' passHref legacyBehavior>
+          <Button as='a' variant='primary'>
+            Read the blog
+          </Button>
         </Link>
-        <Link
-          href='/contact'
-          style={{ border: '1px solid #444', padding: '0.6rem 1.4rem', borderRadius: BORDER_RADIUS_MD, color: '#fff' }}
-        >
-          Get in touch
+        <Link href='/contact' passHref legacyBehavior>
+          <Button as='a' variant='secondary'>
+            Get in touch
+          </Button>
         </Link>
       </div>
     </section>
 
-    {recentPosts.length > ZERO && (
+    {recentPosts.length !== EMPTY && (
       <section>
-        <h2 style={{ fontSize: '1.25rem', marginBottom: '1.25rem' }}>Recent Posts</h2>
-        <ul style={{ listStyle: 'none', padding: ZERO, margin: ZERO }}>
+        <h2 className='h5 mb-3'>Recent Posts</h2>
+        <ul className='list-unstyled'>
           {recentPosts.map((post) => (
-            <li
-              key={post.slug}
-              style={{ marginBottom: '1.25rem', paddingBottom: '1.25rem', borderBottom: '1px solid #444' }}
-            >
-              <Link href={`/posts/${post.slug}`} style={{ fontWeight: FONT_WEIGHT_SEMIBOLD }}>
+            <li key={post.slug} className='mb-3 pb-3 border-bottom'>
+              <Link href={`/posts/${post.slug}`} className='fw-semibold'>
                 {post.title}
               </Link>
-              {post.date !== '' && (
-                <span style={{ marginLeft: '0.75rem', fontSize: '0.85rem', color: '#888' }}>
-                  {formatDate(post.date)}
-                </span>
-              )}
-              {post.excerpt !== undefined && (
-                <p style={{ margin: '0.3rem 0 0', color: '#adb5bd', fontSize: '0.95rem' }}>{post.excerpt}</p>
-              )}
+              {post.date !== '' && <span className='ms-2 text-muted small'>{formatDate(post.date)}</span>}
+              {post.excerpt !== undefined && <p className='mb-0 mt-1 text-muted small'>{post.excerpt}</p>}
             </li>
           ))}
         </ul>
-        <Link href='/blog' style={{ fontSize: '0.9rem' }}>
+        <Link href='/blog' className='small'>
           All posts →
         </Link>
       </section>
@@ -82,7 +63,7 @@ const Home: NextPage<HomeProps> = ({ recentPosts }) => (
 )
 
 export const getStaticProps: GetStaticProps<HomeProps> = () => {
-  const recentPosts = getAllPosts().slice(ZERO, RECENT_POST_COUNT)
+  const recentPosts = getAllPosts().filter((_, i) => i < RECENT_POST_COUNT)
   return { props: { recentPosts } }
 }
 

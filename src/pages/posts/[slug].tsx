@@ -5,6 +5,7 @@ import { MDXRemote, type MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import remarkGfm from 'remark-gfm'
 import rehypeHighlight from 'rehype-highlight'
+import { Badge } from 'react-bootstrap'
 import Layout from '../../components/Layout'
 import { getAllPosts, getPostBySlug, type PostMeta } from '../../lib/posts'
 import { formatDate } from '../../lib/format'
@@ -14,8 +15,7 @@ interface PostPageProps {
   source: MDXRemoteSerializeResult
 }
 
-const ZERO = 0
-const BORDER_RADIUS_SM = 4
+const EMPTY = 0
 
 const PostPage: NextPage<PostPageProps> = ({ meta, source }) => (
   <Layout>
@@ -25,18 +25,9 @@ const PostPage: NextPage<PostPageProps> = ({ meta, source }) => (
     </Head>
 
     <article>
-      <header style={{ marginBottom: '2rem' }}>
-        <h1 style={{ marginTop: ZERO }}>{meta.title}</h1>
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '0.5rem',
-            alignItems: 'center',
-            fontSize: '0.85rem',
-            color: '#888'
-          }}
-        >
+      <header className='mb-4'>
+        <h1 className='mt-0'>{meta.title}</h1>
+        <div className='d-flex flex-wrap gap-2 align-items-center text-muted small'>
           {meta.date !== '' && <span>{formatDate(meta.date)}</span>}
           {meta.category !== undefined && (
             <>
@@ -45,22 +36,13 @@ const PostPage: NextPage<PostPageProps> = ({ meta, source }) => (
             </>
           )}
         </div>
-        {meta.tags.length > ZERO && (
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.5rem' }}>
+        {meta.tags.length !== EMPTY && (
+          <div className='d-flex flex-wrap gap-1 mt-2'>
             {meta.tags.map((tag) => (
-              <Link
-                key={tag}
-                href={`/tags/${tag}`}
-                style={{
-                  background: '#303030',
-                  border: '1px solid #444',
-                  borderRadius: BORDER_RADIUS_SM,
-                  padding: '0.1rem 0.5rem',
-                  fontSize: '0.8rem',
-                  color: '#adb5bd'
-                }}
-              >
-                {tag}
+              <Link key={tag} href={`/tags/${tag}`} className='text-decoration-none'>
+                <Badge bg='secondary' className='fw-normal'>
+                  {tag}
+                </Badge>
               </Link>
             ))}
           </div>

@@ -3,8 +3,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../components/Layout'
 
-const ZERO = 0
-
 const About: NextPage = () => (
   <Layout>
     <Head>
@@ -12,7 +10,7 @@ const About: NextPage = () => (
       <meta name='description' content='About this blog and its author' />
     </Head>
 
-    <h1 style={{ marginTop: ZERO }}>About</h1>
+    <h1 className='mt-0'>About</h1>
 
     <p>
       Hi, I'm the author of this blog. I write about software development, technology, and whatever else catches my

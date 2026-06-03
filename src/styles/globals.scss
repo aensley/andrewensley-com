@@ -1,55 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap');
+// Place your Bootstrap/Flatly variable overrides here, before the imports below.
+// Example: $primary: #your-color;
 
-// Darkly theme variables
-$bg: #222;
-$bg-component: #303030;
-$bg-hover: rgba(255, 255, 255, 0.05);
-$border: #444;
-$text: #fff;
-$text-muted: #888;
-$text-subtle: #adb5bd;
-$link: #00bc8c;
-$link-hover: #00d4a0;
-$primary: #375a7f;
-$font-family:
-  Lato,
-  -apple-system,
-  BlinkMacSystemFont,
-  'Segoe UI',
-  Roboto,
-  'Helvetica Neue',
-  Arial,
-  sans-serif;
-$font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+@import 'bootswatch/dist/flatly/variables';
+@import 'bootstrap/scss/bootstrap';
+@import 'bootswatch/dist/flatly/bootswatch';
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: $font-family;
-  line-height: 1.6;
-  color: $text;
-  background: $bg;
-}
-
-a {
-  color: $link;
-  text-decoration: none;
-
-  &:hover {
-    color: $link-hover;
-  }
-}
-
-// Markdown / MDX article styles
+// Markdown / MDX article styles — Bootstrap utility classes don't reach inside MDX-rendered HTML
 article {
   font-size: 1rem;
   line-height: 1.6;
-  color: $text;
 
   h1,
   h2,
@@ -66,12 +25,12 @@ article {
   h1 {
     font-size: 2em;
     padding-bottom: 0.3em;
-    border-bottom: 1px solid $border;
+    border-bottom: 1px solid var(--bs-border-color);
   }
   h2 {
     font-size: 1.5em;
     padding-bottom: 0.3em;
-    border-bottom: 1px solid $border;
+    border-bottom: 1px solid var(--bs-border-color);
   }
   h3 {
     font-size: 1.25em;
@@ -84,21 +43,12 @@ article {
   }
   h6 {
     font-size: 0.85em;
-    color: $text-muted;
+    color: var(--bs-secondary-color);
   }
 
   p {
     margin-top: 0;
     margin-bottom: 1em;
-  }
-
-  a {
-    color: $link;
-
-    &:hover {
-      color: $link-hover;
-      text-decoration: underline;
-    }
   }
 
   strong {
@@ -131,8 +81,8 @@ article {
   blockquote {
     margin: 0 0 1em;
     padding: 0 1em;
-    color: $text-muted;
-    border-left: 0.25em solid $border;
+    color: var(--bs-secondary-color);
+    border-left: 0.25em solid var(--bs-border-color);
 
     > :first-child {
       margin-top: 0;
@@ -146,27 +96,27 @@ article {
     height: 0.25em;
     padding: 0;
     margin: 1.5em 0;
-    background-color: $border;
+    background-color: var(--bs-border-color);
     border: 0;
   }
 
   pre {
-    background: $bg-component;
+    background: var(--bs-tertiary-bg);
     padding: 1rem;
     overflow-x: auto;
     border-radius: 6px;
-    border: 1px solid $border;
+    border: 1px solid var(--bs-border-color);
     font-size: 0.875em;
     line-height: 1.45;
     margin-bottom: 1em;
   }
 
   code {
-    font-family: $font-mono;
     font-size: 0.875em;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bs-secondary-bg);
     padding: 0.2em 0.4em;
-    border-radius: 6px;
+    border-radius: 4px;
+    color: var(--bs-body-color);
   }
 
   pre code {
@@ -174,6 +124,7 @@ article {
     padding: 0;
     border-radius: 0;
     font-size: 1em;
+    color: inherit;
   }
 
   table {
@@ -186,16 +137,16 @@ article {
     th,
     td {
       padding: 6px 13px;
-      border: 1px solid $border;
+      border: 1px solid var(--bs-border-color);
     }
 
     th {
       font-weight: 600;
-      background: $bg-component;
+      background: var(--bs-tertiary-bg);
     }
 
     tr:nth-child(even) {
-      background: $bg-hover;
+      background: var(--bs-secondary-bg);
     }
   }
 

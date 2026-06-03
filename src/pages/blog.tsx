@@ -1,6 +1,7 @@
 import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
+import { Badge } from 'react-bootstrap'
 import Layout from '../components/Layout'
 import { getAllPosts, type PostMeta } from '../lib/posts'
 import { formatDate } from '../lib/format'
@@ -9,9 +10,7 @@ interface BlogProps {
   posts: PostMeta[]
 }
 
-const ZERO = 0
-const FONT_WEIGHT_SEMIBOLD = 600
-const BORDER_RADIUS_SM = 4
+const EMPTY = 0
 
 const Blog: NextPage<BlogProps> = ({ posts }) => (
   <Layout>
@@ -20,27 +19,17 @@ const Blog: NextPage<BlogProps> = ({ posts }) => (
       <meta name='description' content='All posts' />
     </Head>
 
-    <h1 style={{ marginTop: ZERO }}>Blog</h1>
+    <h1 className='mt-0'>Blog</h1>
 
-    {posts.length === ZERO && <p>No posts yet.</p>}
+    {posts.length === EMPTY && <p>No posts yet.</p>}
 
-    <ul style={{ listStyle: 'none', padding: ZERO, margin: ZERO }}>
+    <ul className='list-unstyled'>
       {posts.map((post) => (
-        <li key={post.slug} style={{ marginBottom: '2rem' }}>
-          <Link href={`/posts/${post.slug}`} style={{ fontSize: '1.25rem', fontWeight: FONT_WEIGHT_SEMIBOLD }}>
+        <li key={post.slug} className='mb-4'>
+          <Link href={`/posts/${post.slug}`} className='fs-5 fw-semibold'>
             {post.title}
           </Link>
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '0.5rem',
-              alignItems: 'center',
-              fontSize: '0.85rem',
-              color: '#888',
-              marginTop: '0.25rem'
-            }}
-          >
+          <div className='d-flex flex-wrap gap-2 align-items-center text-muted small mt-1'>
             {post.date !== '' && <span>{formatDate(post.date)}</span>}
             {post.category !== undefined && (
               <>
@@ -49,27 +38,18 @@ const Blog: NextPage<BlogProps> = ({ posts }) => (
               </>
             )}
           </div>
-          {post.tags.length > ZERO && (
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.4rem' }}>
+          {post.tags.length !== EMPTY && (
+            <div className='d-flex flex-wrap gap-1 mt-1'>
               {post.tags.map((tag) => (
-                <Link
-                  key={tag}
-                  href={`/tags/${tag}`}
-                  style={{
-                    background: '#303030',
-                    border: '1px solid #444',
-                    borderRadius: BORDER_RADIUS_SM,
-                    padding: '0.1rem 0.5rem',
-                    fontSize: '0.8rem',
-                    color: '#adb5bd'
-                  }}
-                >
-                  {tag}
+                <Link key={tag} href={`/tags/${tag}`} className='text-decoration-none'>
+                  <Badge bg='secondary' className='fw-normal'>
+                    {tag}
+                  </Badge>
                 </Link>
               ))}
             </div>
           )}
-          {post.excerpt !== undefined && <p style={{ margin: '0.5rem 0 0', color: '#adb5bd' }}>{post.excerpt}</p>}
+          {post.excerpt !== undefined && <p className='mb-0 mt-1 text-muted small'>{post.excerpt}</p>}
         </li>
       ))}
     </ul>

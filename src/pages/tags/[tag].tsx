@@ -3,14 +3,12 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../../components/Layout'
 import { getAllTags, getPostsByTag, type PostMeta } from '../../lib/posts'
+import { formatDate } from '../../lib/format'
 
 interface TagPageProps {
   tag: string
   posts: PostMeta[]
 }
-
-const ZERO = 0
-const FONT_WEIGHT_SEMIBOLD = 600
 
 const TagPage: NextPage<TagPageProps> = ({ tag, posts }) => (
   <Layout>
@@ -18,17 +16,17 @@ const TagPage: NextPage<TagPageProps> = ({ tag, posts }) => (
       <title>#{tag} — My Blog</title>
     </Head>
 
-    <p style={{ color: '#888', fontSize: '0.85rem', margin: ZERO }}>Tag</p>
-    <h1 style={{ marginTop: ZERO }}>#{tag}</h1>
+    <p className='text-muted small mb-0'>Tag</p>
+    <h1 className='mt-0'>#{tag}</h1>
 
-    <ul style={{ listStyle: 'none', padding: ZERO, margin: ZERO }}>
+    <ul className='list-unstyled'>
       {posts.map((post) => (
-        <li key={post.slug} style={{ marginBottom: '1.5rem' }}>
-          <Link href={`/posts/${post.slug}`} style={{ fontSize: '1.1rem', fontWeight: FONT_WEIGHT_SEMIBOLD }}>
+        <li key={post.slug} className='mb-3'>
+          <Link href={`/posts/${post.slug}`} className='fs-6 fw-semibold'>
             {post.title}
           </Link>
-          {post.date !== '' && <p style={{ margin: '0.2rem 0 0', color: '#888', fontSize: '0.85rem' }}>{post.date}</p>}
-          {post.excerpt !== undefined && <p style={{ margin: '0.4rem 0 0' }}>{post.excerpt}</p>}
+          {post.date !== '' && <p className='mb-0 mt-1 text-muted small'>{formatDate(post.date)}</p>}
+          {post.excerpt !== undefined && <p className='mb-0 mt-1 text-muted small'>{post.excerpt}</p>}
         </li>
       ))}
     </ul>
