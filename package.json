@@ -1,7 +1,6 @@
 {
   "name": "andrewensley-com",
   "version": "1.0.0",
-  "private": true,
   "scripts": {
     "copy:functions": "rm -rf functions && cp -r src/functions functions",
     "dev": "next dev --port 5050",
@@ -38,6 +37,11 @@
     "prettier": "^3.8.3",
     "sass": "^1.100.0",
     "typescript": "^6.0.3"
+  },
+  "overrides": {
+    "lodash": "^4.18.1",
+    "postcss": "^8.5.10",
+    "tmp": "^0.2.6"
   },
   "pre-commit": {
     "run": [
