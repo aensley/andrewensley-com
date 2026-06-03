@@ -73,7 +73,8 @@
     "vueIndentScriptAndStyle": false
   },
   "config": {
-    "czg": {
+    "commitizen": {
+      "path": "node_modules/cz-git",
       "type": "conventional",
       "useEmoji": true
     }
