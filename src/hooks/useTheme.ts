@@ -16,17 +16,9 @@ function applyTheme(next: Theme): void {
     localStorage.setItem('theme', next)
   } catch {}
 
-  const id = 'hljs-dark-theme'
-  if (next === 'dark') {
-    if (document.getElementById(id) === null) {
-      const link = document.createElement('link')
-      link.id = id
-      link.rel = 'stylesheet'
-      link.href = '/hljs-dark.css'
-      document.head.appendChild(link)
-    }
-  } else {
-    document.getElementById(id)?.remove()
+  const link = document.querySelector<HTMLLinkElement>('#hljs-theme')
+  if (link !== null) {
+    link.href = next === 'dark' ? '/hljs-dark.css' : '/hljs-light.css'
   }
 }
 

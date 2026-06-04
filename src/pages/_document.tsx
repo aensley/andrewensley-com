@@ -8,13 +8,11 @@ const themeInitScript = `(function(){
     t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
   document.documentElement.setAttribute('data-bs-theme', t);
-  if (t === 'dark') {
-    var l = document.createElement('link');
-    l.id = 'hljs-dark-theme';
-    l.rel = 'stylesheet';
-    l.href = '/hljs-dark.css';
-    document.head.appendChild(l);
-  }
+  var l = document.createElement('link');
+  l.id = 'hljs-theme';
+  l.rel = 'stylesheet';
+  l.href = t === 'dark' ? '/hljs-dark.css' : '/hljs-light.css';
+  document.head.appendChild(l);
 })()`
 
 export default function Document(): React.ReactElement {
