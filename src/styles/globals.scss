@@ -1,12 +1,6 @@
 @use 'sass:meta';
 
-// Place your Bootstrap/Flatly variable overrides here, before the imports below.
-// Example: $primary: #your-color;
-$primary: #930000;
-$hover-primary: #b30000;
-$navbar-dark-hover-color: #dddddd;
-$navbar-dark-brand-hover-color: #dddddd;
-
+@import 'bootstrap-overrides';
 @import 'bootswatch/dist/flatly/variables';
 @import 'bootstrap/scss/bootstrap';
 @import 'bootswatch/dist/flatly/bootswatch';
@@ -19,6 +13,7 @@ $navbar-dark-brand-hover-color: #dddddd;
 
 @import 'mdx';
 
+/* Syntax highlighting styles */
 [data-bs-theme='light'] {
   @include meta.load-css('highlight.js/styles/github');
 }
