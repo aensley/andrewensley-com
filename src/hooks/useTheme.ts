@@ -15,11 +15,6 @@ function applyTheme(next: Theme): void {
   try {
     localStorage.setItem('theme', next)
   } catch {}
-
-  const link = document.querySelector<HTMLLinkElement>('#hljs-theme')
-  if (link !== null) {
-    link.href = next === 'dark' ? '/hljs-dark.css' : '/hljs-light.css'
-  }
 }
 
 export function useTheme(): { theme: Theme; toggle: () => void; mounted: boolean } {
