@@ -13,7 +13,7 @@ interface CategoryPageProps {
 const CategoryPage: NextPage<CategoryPageProps> = ({ category, posts }) => (
   <Layout>
     <Head>
-      <title>{category} — My Blog</title>
+      <title>{category} | AndrewEnsley.com</title>
     </Head>
 
     <p className='text-muted small mb-0'>Category</p>
@@ -22,7 +22,7 @@ const CategoryPage: NextPage<CategoryPageProps> = ({ category, posts }) => (
     <ul className='list-unstyled'>
       {posts.map((post) => (
         <li key={post.slug} className='mb-3'>
-          <Link href={`/posts/${post.slug}`} className='fs-6 fw-semibold'>
+          <Link href={`/post/${post.slug}`} className='fs-6 fw-semibold'>
             {post.title}
           </Link>
           {post.date !== '' && <p className='mb-0 mt-1 text-muted small'>{formatDate(post.date)}</p>}

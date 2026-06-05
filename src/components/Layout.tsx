@@ -14,8 +14,8 @@ export default function Layout({ children }: LayoutProps): React.JSX.Element {
         <Container>
           <Row className='justify-content-center w-100'>
             <Col xs={12} lg={8} className='d-flex align-items-center flex-wrap'>
-              <Navbar.Brand as={Link} href='/'>
-                My Blog
+              <Navbar.Brand as={Link} href='/' className='d-flex align-items-center gap-2'>
+                <img src='/icon.svg' alt='AndrewEnsley.com' className='navbar-brand-icon' />
               </Navbar.Brand>
               <Navbar.Toggle aria-controls='main-nav' />
               <Navbar.Collapse id='main-nav'>
@@ -40,7 +40,9 @@ export default function Layout({ children }: LayoutProps): React.JSX.Element {
         <Row className='justify-content-center'>
           <Col xs={12} lg={8}>
             <main>{children}</main>
-            <footer className='mt-5 pt-3 border-top text-muted small'>© {new Date().getFullYear()} My Blog</footer>
+            <footer className='mt-5 pt-3 border-top text-muted small'>
+              © {new Date().getFullYear()} Andrew Ensley
+            </footer>
           </Col>
         </Row>
       </Container>

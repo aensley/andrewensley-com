@@ -15,12 +15,12 @@ const RECENT_POST_COUNT = 3
 const Home: NextPage<HomeProps> = ({ recentPosts }) => (
   <Layout>
     <Head>
-      <title>My Blog</title>
-      <meta name='description' content='Welcome to My Blog' />
+      <title>AndrewEnsley.com</title>
+      <meta name='description' content='Welcome to AndrewEnsley.com' />
     </Head>
 
     <section className='mb-5'>
-      <h1 className='mt-0'>Welcome to My Blog</h1>
+      <h1 className='mt-0'>Welcome to AndrewEnsley.com</h1>
       <p className='lead text-muted'>
         A place to share thoughts on software, technology, and everything in between. Dive into the latest posts below
         or learn more <Link href='/about'>about me</Link>.
@@ -41,7 +41,7 @@ const Home: NextPage<HomeProps> = ({ recentPosts }) => (
         <ul className='list-unstyled'>
           {recentPosts.map((post) => (
             <li key={post.slug} className='mb-3 pb-3 border-bottom'>
-              <Link href={`/posts/${post.slug}`} className='fw-semibold'>
+              <Link href={`/post/${post.slug}`} className='fw-semibold'>
                 {post.title}
               </Link>
               {post.date !== '' && <span className='ms-2 text-muted small'>{formatDate(post.date)}</span>}

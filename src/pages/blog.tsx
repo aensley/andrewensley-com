@@ -15,7 +15,7 @@ const EMPTY = 0
 const Blog: NextPage<BlogProps> = ({ posts }) => (
   <Layout>
     <Head>
-      <title>Blog – My Blog</title>
+      <title>Blog | AndrewEnsley.com</title>
       <meta name='description' content='All posts' />
     </Head>
 
@@ -26,7 +26,7 @@ const Blog: NextPage<BlogProps> = ({ posts }) => (
     <ul className='list-unstyled'>
       {posts.map((post) => (
         <li key={post.slug} className='mb-4'>
-          <Link href={`/posts/${post.slug}`} className='fs-5 fw-semibold'>
+          <Link href={`/post/${post.slug}`} className='fs-5 fw-semibold'>
             {post.title}
           </Link>
           <div className='d-flex flex-wrap gap-2 align-items-center text-muted small mt-1'>
@@ -34,14 +34,14 @@ const Blog: NextPage<BlogProps> = ({ posts }) => (
             {post.category !== undefined && (
               <>
                 {post.date !== '' && <span>·</span>}
-                <Link href={`/categories/${post.category}`}>{post.category}</Link>
+                <Link href={`/category/${post.category}`}>{post.category}</Link>
               </>
             )}
           </div>
           {post.tags.length !== EMPTY && (
             <div className='d-flex flex-wrap gap-1 mt-1'>
               {post.tags.map((tag) => (
-                <Link key={tag} href={`/tags/${tag}`} className='text-decoration-none'>
+                <Link key={tag} href={`/tag/${tag}`} className='text-decoration-none'>
                   <Badge bg='secondary' className='fw-normal'>
                     {tag}
                   </Badge>

@@ -16,7 +16,7 @@ const Contact: NextPage = () => {
   return (
     <Layout>
       <Head>
-        <title>Contact – My Blog</title>
+        <title>Contact | AndrewEnsley.com</title>
         <meta name='description' content='Get in touch' />
       </Head>
 

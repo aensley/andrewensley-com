@@ -19,6 +19,8 @@ export default function Document(): React.ReactElement {
   return (
     <Html lang='en' data-scroll-behavior='smooth'>
       <Head>
+        <link rel='icon' type='image/svg+xml' href='/icon.svg' />
+        <link rel='icon' type='image/x-icon' href='/favicon.ico' sizes='16x16 32x32 48x48' />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </Head>
       <body>

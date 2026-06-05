@@ -1,13 +1,19 @@
 // Place your Bootstrap/Flatly variable overrides here, before the imports below.
 // Example: $primary: #your-color;
-/*
 $primary: #930000;
 $hover-primary: #b30000;
-*/
+$navbar-dark-hover-color: #dddddd;
+$navbar-dark-brand-hover-color: #dddddd;
 
 @import 'bootswatch/dist/flatly/variables';
 @import 'bootstrap/scss/bootstrap';
 @import 'bootswatch/dist/flatly/bootswatch';
+
+.navbar-brand-icon {
+  width: 28px;
+  height: 28px;
+  filter: brightness(0) invert(1);
+}
 
 // Markdown / MDX article styles — Bootstrap utility classes don't reach inside MDX-rendered HTML
 article {

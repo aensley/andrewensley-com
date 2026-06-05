@@ -6,7 +6,7 @@ import Layout from '../components/Layout'
 const About: NextPage = () => (
   <Layout>
     <Head>
-      <title>About – My Blog</title>
+      <title>About | AndrewEnsley.com</title>
       <meta name='description' content='About this blog and its author' />
     </Head>
 

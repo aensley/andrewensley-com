@@ -18,6 +18,7 @@ export interface PostMeta {
   excerpt?: string
   category?: string
   tags: string[]
+  featuredImage?: string
 }
 
 export interface Post extends PostMeta {
@@ -47,6 +48,8 @@ export function getPostBySlug(slug: string): Post {
           .filter(Boolean)
       : []
 
+  const featuredImage = asString(safeData.featuredImage)
+
   return {
     slug,
     title: asString(safeData.title) ?? slug,
@@ -54,6 +57,7 @@ export function getPostBySlug(slug: string): Post {
     excerpt: asString(safeData.excerpt),
     category: asString(safeData.category),
     tags,
+    ...(featuredImage !== undefined && { featuredImage }),
     content
   }
 }
