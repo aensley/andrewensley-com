@@ -13,7 +13,7 @@ interface TagPageProps {
 const TagPage: NextPage<TagPageProps> = ({ tag, posts }) => (
   <Layout>
     <Head>
-      <title>#{tag} | AndrewEnsley.com</title>
+      <title>{`#${tag} | AndrewEnsley.com`}</title>
     </Head>
 
     <p className='text-muted small mb-0'>Tag</p>

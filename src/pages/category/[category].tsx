@@ -13,7 +13,7 @@ interface CategoryPageProps {
 const CategoryPage: NextPage<CategoryPageProps> = ({ category, posts }) => (
   <Layout>
     <Head>
-      <title>{category} | AndrewEnsley.com</title>
+      <title>{`${category} | AndrewEnsley.com`}</title>
     </Head>
 
     <p className='text-muted small mb-0'>Category</p>

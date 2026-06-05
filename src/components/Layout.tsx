@@ -7,6 +7,8 @@ interface LayoutProps {
   children: React.ReactNode
 }
 
+const MINWIDTH_ZERO = 0
+
 export default function Layout({ children }: LayoutProps): React.JSX.Element {
   return (
     <>
@@ -38,7 +40,7 @@ export default function Layout({ children }: LayoutProps): React.JSX.Element {
       </Navbar>
       <Container className='py-4'>
         <Row className='justify-content-center'>
-          <Col xs={12} lg={8}>
+          <Col xs={12} lg={8} style={{ minWidth: MINWIDTH_ZERO }}>
             <main>{children}</main>
             <footer className='mt-5 pt-3 border-top text-muted small'>
               © {new Date().getFullYear()} Andrew Ensley

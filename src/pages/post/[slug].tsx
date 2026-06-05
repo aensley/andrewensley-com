@@ -20,7 +20,7 @@ const EMPTY = 0
 const PostPage: NextPage<PostPageProps> = ({ meta, source }) => (
   <Layout>
     <Head>
-      <title>{meta.title} | AndrewEnsley.com</title>
+      <title>{`${meta.title} | AndrewEnsley.com`}</title>
       {meta.excerpt !== undefined && <meta name='description' content={meta.excerpt} />}
       {meta.featuredImage !== undefined && <meta property='og:image' content={meta.featuredImage} />}
     </Head>
@@ -59,7 +59,16 @@ const PostPage: NextPage<PostPageProps> = ({ meta, source }) => (
         )}
       </header>
 
-      <MDXRemote {...source} />
+      <MDXRemote
+        {...source}
+        components={{
+          table: (props) => (
+            <div style={{ overflowX: 'auto' }}>
+              <table {...props} />
+            </div>
+          )
+        }}
+      />
     </article>
   </Layout>
 )
