@@ -1,5 +1,7 @@
-.lighthouseci/
-dist/
-functions/
-node_modules/
-src/faviconData.json
+/.lighthouseci/
+/.next/
+/functions/
+/node_modules/
+/out/
+/next-env.d.ts
+/tsconfig.tsbuildinfo

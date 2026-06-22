@@ -1,67 +1,87 @@
 {
   "name": "andrewensley-com",
   "version": "1.0.0",
-  "description": "AndrewEnsley.com",
+  "scripts": {
+    "clean": "rm -rf .next out functions",
+    "copy:functions": "rm -rf functions && cp -r src/functions functions",
+    "dev": "next dev --port 5050",
+    "build": "npm run copy:functions && next build && pagefind --site out",
+    "build:sourcemaps": "npm run copy:functions && GENERATE_SOURCEMAPS=true next build",
+    "preview": "npx serve out -l 4040",
+    "lint": "eslint . && prettier --check .",
+    "lint:fix": "eslint --fix . && prettier --write .",
+    "pre-commit-msg": "echo Running pre-commit checks...",
+    "check:update": "npx npm-check-updates",
+    "update:all": "npx npm-check-updates -u && npm update"
+  },
   "dependencies": {
-    "@srexi/purecounterjs": "^1.5.0",
-    "aos": "^2.3.4",
     "bootstrap": "^5.3.8",
-    "typed.js": "^3.0.0",
-    "waypoints": "^4.0.1"
+    "bootswatch": "^5.3.8",
+    "gray-matter": "^4.0.3",
+    "highlight.js": "^11.11.1",
+    "next": "^16.2.7",
+    "next-mdx-remote": "^6.0.0",
+    "react": "^19.2.7",
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "^19.2.7",
+    "rehype-highlight": "^7.0.2",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
-    "@cfworker/sentry": "^5.0.3",
-    "@cloudflare/workers-types": "^4.20260601.1",
-    "@sentry/browser": "^10.55.0",
-    "@sentry/tracing": "^7.120.4",
-    "del": "^8.0.1",
-    "gulp": "^5.0.1",
-    "gulp-cli": "^3.1.0",
-    "gulp-file-include": "^2.3.0",
-    "gulp-htmlmin": "^5.0.1",
-    "gulp-imagemin": "^9.2.0",
-    "gulp-real-favicon": "^0.3.2",
-    "gulp-replace": "^1.1.4",
-    "gulp-sass": "^6.0.1",
-    "gulp-sourcemaps": "^v3.0.0",
-    "live-server": "^1.2.2",
+    "@types/node": "^25.9.1",
+    "@types/react": "^19.2.16",
+    "@types/react-dom": "^19.2.3",
+    "czg": "^1.13.1",
+    "eslint": "^9.35.0",
+    "eslint-config-love": "^154.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "jiti": "^2.7.0",
+    "pagefind": "^1.5.2",
     "pre-commit": "^2.0.0",
     "prettier": "^3.8.3",
     "sass": "^1.100.0",
-    "standard": "^17.1.2",
-    "string-replace-loader": "^3.3.0",
-    "through2": "^5.0.1",
-    "vinyl-named": "^1.1.0",
-    "webpack-stream": "^7.0.0"
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.60.1"
   },
-  "pre-commit": [
-    "precommit-msg",
-    "test"
-  ],
-  "scripts": {
-    "clean": "gulp clean",
-    "precommit-msg": "echo Running pre-commit checks...",
-    "test": "standard src/assets/js/*.js && prettier --check .",
-    "build": "npm run clean && gulp",
-    "watch": "gulp watch",
-    "start": "live-server dist",
-    "update": "npx npm-check-updates -u && npm update"
+  "overrides": {
+    "postcss": "^8.5.15"
   },
-  "standard": {
-    "globals": [
-      "AOS",
-      "PureCounter",
-      "Typed",
-      "Waypoint"
+  "pre-commit": {
+    "run": [
+      "pre-commit-msg",
+      "lint"
     ],
-    "ignore": [
-      "/src/assets/js/fontawesome.js"
-    ]
+    "silent": true,
+    "colors": true
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aensley/andrewensley-com"
+  "engines": {
+    "node": ">= 22.14"
   },
-  "author": "aensley@users.noreply.github.com",
-  "license": "UNLICENSED"
+  "prettier": {
+    "tabWidth": 2,
+    "printWidth": 120,
+    "useTabs": false,
+    "endOfLine": "lf",
+    "trailingComma": "none",
+    "semi": false,
+    "singleQuote": true,
+    "arrowParens": "always",
+    "bracketSameLine": false,
+    "bracketSpacing": true,
+    "embeddedLanguageFormatting": "auto",
+    "htmlWhitespaceSensitivity": "css",
+    "insertPragma": false,
+    "jsxSingleQuote": true,
+    "proseWrap": "preserve",
+    "quoteProps": "as-needed",
+    "requirePragma": false,
+    "vueIndentScriptAndStyle": false
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git",
+      "type": "conventional",
+      "useEmoji": true
+    }
+  }
 }

@@ -1,0 +1,150 @@
+// Markdown / MDX article styles - Bootstrap utility classes don't reach inside MDX-rendered HTML
+article {
+  font-size: 1rem;
+  line-height: 1.6;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+    line-height: 1.25;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+  }
+
+  h1 {
+    font-size: 2em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid var(--bs-border-color);
+  }
+  h2 {
+    font-size: 1.5em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid var(--bs-border-color);
+  }
+  h3 {
+    font-size: 1.25em;
+  }
+  h4 {
+    font-size: 1em;
+  }
+  h5 {
+    font-size: 0.875em;
+  }
+  h6 {
+    font-size: 0.85em;
+    color: var(--bs-secondary-color);
+  }
+
+  p {
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+  em {
+    font-style: italic;
+  }
+
+  ul,
+  ol {
+    padding-left: 2em;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  li {
+    margin-top: 0.25em;
+
+    & + li {
+      margin-top: 0.25em;
+    }
+    > ul,
+    > ol {
+      margin-top: 0.25em;
+      margin-bottom: 0;
+    }
+  }
+
+  blockquote {
+    margin: 0 0 1em;
+    padding: 0 1em;
+    color: var(--bs-secondary-color);
+    border-left: 0.25em solid var(--bs-border-color);
+
+    > :first-child {
+      margin-top: 0;
+    }
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  hr {
+    height: 0.25em;
+    padding: 0;
+    margin: 1.5em 0;
+    background-color: var(--bs-border-color);
+    border: 0;
+  }
+
+  pre {
+    background: var(--bs-tertiary-bg);
+    padding: 1rem;
+    overflow-x: auto;
+    border-radius: 6px;
+    border: 1px solid var(--bs-border-color);
+    font-size: 0.875em;
+    line-height: 1.45;
+    margin-bottom: 1em;
+  }
+
+  code {
+    font-size: 0.875em;
+    background: var(--bs-secondary-bg);
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    color: var(--bs-body-color);
+  }
+
+  pre code {
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    font-size: 1em;
+    color: inherit;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1em;
+    font-size: 0.9375em;
+
+    th,
+    td {
+      padding: 6px 13px;
+      border: 1px solid var(--bs-border-color);
+    }
+
+    th {
+      font-weight: 600;
+      background: var(--bs-tertiary-bg);
+    }
+
+    tr:nth-child(even) {
+      background: var(--bs-secondary-bg);
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+}
