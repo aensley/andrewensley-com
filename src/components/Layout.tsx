@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import { Col, Container, Nav, Navbar, Row } from 'react-bootstrap'
+import SearchButton from './SearchButton'
 import ThemeToggle from './ThemeToggle'
 
 interface LayoutProps {
@@ -31,6 +32,7 @@ export default function Layout({ children }: LayoutProps): React.JSX.Element {
                   <Nav.Link as={Link} href='/contact'>
                     Contact
                   </Nav.Link>
+                  <SearchButton />
                   <ThemeToggle />
                 </Nav>
               </Navbar.Collapse>

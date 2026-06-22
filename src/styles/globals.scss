@@ -13,6 +13,8 @@
 
 @import 'mdx';
 
+@import 'pagefind';
+
 /* Syntax highlighting styles */
 [data-bs-theme='light'] {
   @include meta.load-css('highlight.js/styles/github');

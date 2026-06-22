@@ -25,10 +25,19 @@ const PostPage: NextPage<PostPageProps> = ({ meta, source }) => (
       {meta.featuredImage !== undefined && <meta property='og:image' content={meta.featuredImage} />}
     </Head>
 
-    <article>
+    <div aria-hidden='true' className='visually-hidden'>
+      {meta.category !== undefined && <span data-pagefind-filter='category'>{meta.category}</span>}
+      {meta.tags.map((tag) => (
+        <span key={`pf-${tag}`} data-pagefind-filter='tag'>
+          {tag}
+        </span>
+      ))}
+    </div>
+
+    <article data-pagefind-body>
       <header className='mb-4'>
         <h1 className='mt-0'>{meta.title}</h1>
-        <div className='d-flex flex-wrap gap-2 align-items-center text-muted small'>
+        <div className='d-flex flex-wrap gap-2 align-items-center text-muted small' data-pagefind-ignore>
           {meta.date !== '' && <span>{formatDate(meta.date)}</span>}
           {meta.category !== undefined && (
             <>
@@ -38,7 +47,7 @@ const PostPage: NextPage<PostPageProps> = ({ meta, source }) => (
           )}
         </div>
         {meta.tags.length !== EMPTY && (
-          <div className='d-flex flex-wrap gap-1 mt-2'>
+          <div className='d-flex flex-wrap gap-1 mt-2' data-pagefind-ignore>
             {meta.tags.map((tag) => (
               <Link key={tag} href={`/tag/${tag}`} className='text-decoration-none'>
                 <Badge bg='secondary' className='fw-normal'>
