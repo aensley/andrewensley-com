@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
   sassOptions: {
     // Suppress deprecation warnings from bootstrap/bootswatch dependencies (lighten(), red(), if() etc.)
     quietDeps: true,
-    // Suppress @import deprecation — bootstrap/bootswatch require @import for variable overrides to work
+    // Suppress @import deprecation - bootstrap/bootswatch require @import for variable overrides to work
     silenceDeprecations: ['import']
   }
 }

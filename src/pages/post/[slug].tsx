@@ -50,7 +50,7 @@ const PostPage: NextPage<PostPageProps> = ({ meta, source }) => (
           <div className='d-flex flex-wrap gap-1 mt-2' data-pagefind-ignore>
             {meta.tags.map((tag) => (
               <Link key={tag} href={`/tag/${tag}`} className='text-decoration-none'>
-                <Badge bg='secondary' className='fw-normal'>
+                <Badge bg='dark' className='fw-normal text-white'>
                   {tag}
                 </Badge>
               </Link>

@@ -29,6 +29,12 @@ export default function Layout({ children }: LayoutProps): React.JSX.Element {
                   <Nav.Link as={Link} href='/about'>
                     About
                   </Nav.Link>
+                  <Nav.Link as={Link} href='/resume'>
+                    Résumé
+                  </Nav.Link>
+                  <Nav.Link as={Link} href='/portfolio'>
+                    Portfolio
+                  </Nav.Link>
                   <Nav.Link as={Link} href='/contact'>
                     Contact
                   </Nav.Link>

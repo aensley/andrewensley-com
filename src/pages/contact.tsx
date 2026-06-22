@@ -24,7 +24,7 @@ const Contact: NextPage = () => {
       <p className='text-muted'>Have a question or just want to say hello? Fill out the form below.</p>
 
       {submitted ? (
-        <Alert variant='success'>Thanks for reaching out — I'll get back to you soon!</Alert>
+        <Alert variant='success'>Thanks for reaching out - I'll get back to you soon!</Alert>
       ) : (
         <Row>
           <Col md={6}>
